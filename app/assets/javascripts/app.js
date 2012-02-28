@@ -1,4 +1,4 @@
-var rfn = function(r) {console.log('rfn',zz=r);};
+var rfn = function(r) {console.log('rfn',zz=r);};;
 var App = Em.Application.create();
 
 App.PostListView = Em.View.extend({
