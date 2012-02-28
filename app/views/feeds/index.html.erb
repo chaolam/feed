@@ -1,0 +1,15 @@
+hello feed index world
+<script type="text/x-handlebars">
+  <h2>My Feed</h2>
+  <ul>
+    {{#each App.postsController}}
+      {{#view App.PostListView contentBinding="this"}}
+        {{#with content}}
+          <li> Hello, {{title}}</li>
+        {{/with}}
+      {{/view}}
+    {{/each}}
+  </ul>
+</script>
+
+<%= javascript_include_tag "app" %>

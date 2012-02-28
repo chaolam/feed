@@ -1,0 +1,5 @@
+<div id="fb-root"></div>
+<script>
+  FBMgr.init('<%= FBConf.app_id -%>',
+    "<%= url_for :controller=>'misc', :action=>'fb_channel', :only_path=>false -%>");
+</script>
