@@ -6,7 +6,8 @@ gem 'rails', '3.2.1'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development, :test do
-  gem 'sqlite3'
+  gem 'mysql2'
+  gem 'ruby-debug19', :require => 'ruby-debug'
 end
   
 group :production do
@@ -40,6 +41,5 @@ gem 'jquery-rails'
 # gem 'capistrano'
 
 # To use debugger
-gem 'ruby-debug19', :require => 'ruby-debug'
 
 gem 'koala'

@@ -14,3 +14,4 @@
 //= require jquery_ujs
 //= require fbmgr
 //= require ember-0.9.4
+//= require app

@@ -27,6 +27,9 @@ App.Post = Ember.Object.extend({
   }),
   postLink: Ember.computed(function() {
     return this.attachment && this.attachment.href || this.action_links && this.action_links[0].href;
+  }),
+  game_icon: Ember.computed(function() {
+    return '/games/' + this.app_id + '/icon';
   })
 });
 
@@ -43,5 +46,3 @@ App.postsController = Em.ArrayController.create({
   }
 });
 
-var feedView = App.FeedView.create();
-feedView.appendTo('#feed');

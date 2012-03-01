@@ -1,7 +1,9 @@
 var FBMgr = {
-  init: function(appId, channelUrl) {
+  ChannelUri: '/fb_channel',
+  init: function(appId) {
     this.appId = appId;
-    this.channelUrl = channelUrl;
+    this.channelUrl = window.location.protocol + '//' + location.host +
+      (location.port ? ":" + location.port : '') + this.ChannelUri;
     this.fbinit_deferred = $.Deferred();
     this.fblogged_in = $.Deferred();
     window.fbAsyncInit = $.proxy(this.fbInit_cb, this);
@@ -24,3 +26,4 @@ var FBMgr = {
     }
   }
 };
+FBMgr.init('<%= FBConf.app_id %>');

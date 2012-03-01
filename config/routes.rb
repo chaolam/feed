@@ -2,6 +2,12 @@ Feed::Application.routes.draw do
   root :to=>'feeds#index'
   resources :feeds
   
+  resources :games do
+    member do
+      get :icon
+    end
+  end
+  
   match '/fb_channel', :controller=>'misc', :action=>'fb_channel'
   match '/message/:action', :controller=>'misc'
   # The priority is based upon order of creation:

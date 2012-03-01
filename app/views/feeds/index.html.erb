@@ -15,7 +15,7 @@
         <a target="_blank" href="{{unbound postLink}}">{{title}}</a>
       </div>
       <div class="UIActionLinks">
-        <img class="icon_img" src="http://photos-e.ak.fbcdn.net/photos-ak-snc1/v43/109/107040076067341/app_2_107040076067341_5448.gif">
+        <img class="icon_img" src="{{unbound game_icon}}" width=16 height=16>
         <span class="uiStreamSource">
           <abbr class="timestamp"><a target="_blank" href="{{unbound permalink}}">1 minute ago</a></abbr>
         </span>
@@ -32,4 +32,7 @@
 <div class="row_wrap" id="feed">
 </div>
 
-<%= javascript_include_tag "app" %>
+<script>
+var feedView = App.FeedView.create();
+feedView.appendTo('#feed');
+</script>

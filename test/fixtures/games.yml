@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  app_id: 1
+  canvas_name: MyString
+  icon_url: MyString
+  logo: 
+  mobile_web_url: MyString
+  name: MyString
+
+two:
+  app_id: 1
+  canvas_name: MyString
+  icon_url: MyString
+  logo: 
+  mobile_web_url: MyString
+  name: MyString
