@@ -1,15 +1,35 @@
-hello feed index world test
-<script type="text/x-handlebars">
-  <h2>My Feed</h2>
-  <ul>
-    {{#each App.postsController}}
-      {{#view App.PostListView contentBinding="this"}}
-        {{#with content}}
-          <li> Hello, {{title}}</li>
-        {{/with}}
-      {{/view}}
-    {{/each}}
-  </ul>
+<script type='text/x-handlebars' data-template-name='post'><span>
+{{#with content}}
+  <div class="row">
+    <a href="http://www.facebook.com/profile.php?id={{unbound actor_id}}" class="fb_pic">
+      <img src="http://graph.facebook.com/{{unbound actor_id}}/picture?type=square" />
+    </a>
+    <div class = "mainWrapper">
+      <h6 class="fb_name"><fb:name uid="{{unbound actor_id}}"></fb:name></h6>
+      <div class="avatar"><img src="{{unbound picSrc}}" /></div>
+      <div class="comment_text">
+{{#if message }}
+        <h6 class="uiStreamMessage"><span class="messageBody">{{ message }}</span></h6>
+{{/if}}
+      <div class="uiAttachmentTitle">
+        <a target="_blank" href="{{unbound postLink}}">{{title}}</a>
+      </div>
+      <div class="UIActionLinks">
+        <img class="icon_img" src="http://photos-e.ak.fbcdn.net/photos-ak-snc1/v43/109/107040076067341/app_2_107040076067341_5448.gif">
+        <span class="uiStreamSource">
+          <abbr class="timestamp"><a target="_blank" href="{{unbound permalink}}">1 minute ago</a></abbr>
+        </span>
+{{#if actionText }}
+        <span class="UIActionLinks"> · <a target="_blank" href="{{unbound postLink}}">{{actionText}}</a></span>
+{{/if}}
+      </div>
+    </div>
+  </div>  
+{{/with}}
 </script>
+
+<h2>My Feed</h2>
+<div class="row_wrap" id="feed">
+</div>
 
 <%= javascript_include_tag "app" %>
