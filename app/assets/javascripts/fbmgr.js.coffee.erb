@@ -1,0 +1,28 @@
+@FBMgr = 
+  ChannelUri: '/fb_channel'
+  init: (appId)->
+    @appId = appId
+    @channelUrl = window.location.protocol + '//' + location.host +
+      (if location.port then ":" + location.port else '') + @ChannelUri
+    @fbinit_deferred = $.Deferred()
+    @fblogged_in = $.Deferred()
+    window.fbAsyncInit = $.proxy(@fbInit_cb, @)
+    ((d)->
+      id = 'facebook-jssdk'
+      ref = d.getElementsByTagName('script')[0]
+      if !d.getElementById(id)
+        js = d.createElement('script')
+        js.id = id
+        js.async = true
+        js.src = '//connect.facebook.net/en_US/all.js'
+        ref.parentNode.insertBefore(js, ref)
+    )(document)
+  fbInit_cb: ->
+    FB.init({appId:@appId, status:true, cookie:true, xfbml:true, channelUrl:@channelUrl});
+    @fbinit_deferred.resolve()
+    FB.getLoginStatus($.proxy(@handleFBSession, @))
+  handleFBSession: (r)->
+    if r.authResponse
+      @fblogged_in.resolve()
+      
+FBMgr.init('<%= FBConf.app_id %>')
