@@ -32,6 +32,34 @@
 <div class="row_wrap" id="feed">
 </div>
 
+<script type="text/x-handlebars">
+{{#view App.SelectGameView}}
+    <div id="overlay"></div>
+    <div class="generic_dialog">
+      <div class="generic_dialog_popup">
+        <div id="pop_content" class="pop_content">
+          <h2>Select the games you play to see the feed</h2>
+          <p>Here are the games we think you play. Remove or search to add more.</p>
+          <p>Here are the games you have selected. Remove or search to add more. <a href="#">
+            Suggest for me.</a></p>
+          <input type="text" class="ex" value="search for games"/>
+          <input type="submit" value="add" />
+          <ul class="game_names clearfix">
+{{#each App.gamesController.content }}
+            <li class="game_name">
+              <img src="{{unbound icon_url }}" />
+              {{name}}
+            </li>
+{{/each}}
+          </ul>
+          <div class="dialog_buttons"><input type="button" value="Done"/></div>
+          
+        </div>
+      </div>
+    </div>
+{{/view}}
+</script>
+
 <script>
 var feedView = App.FeedView.create();
 feedView.appendTo('#feed');
