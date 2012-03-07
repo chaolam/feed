@@ -1,11 +1,11 @@
 @FBMgr = 
   ChannelUri: '/fb_channel'
+  fbinit_deferred: $.Deferred()
+  fblogged_in: $.Deferred()
   init: (appId)->
     @appId = appId
     @channelUrl = window.location.protocol + '//' + location.host +
       (if location.port then ":" + location.port else '') + @ChannelUri
-    @fbinit_deferred = $.Deferred()
-    @fblogged_in = $.Deferred()
     window.fbAsyncInit = $.proxy(@fbInit_cb, @)
     ((d)->
       id = 'facebook-jssdk'
@@ -25,4 +25,3 @@
     if r.authResponse
       @fblogged_in.resolve()
       
-FBMgr.init('<%= FBConf.app_id %>')
