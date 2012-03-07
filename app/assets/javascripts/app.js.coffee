@@ -55,7 +55,7 @@ App.Post = Ember.Object.extend(
   )
   actionText: Ember.computed(-> @action_links && @action_links[0].text)
   postLink: Ember.computed(-> @attachment && @attachment.href || @action_links && @action_links[0].href)
-  game_icon: Ember.computed(-> App.Game.findByAppId(@app_id).get('iconUrl'))
+  game_icon: Ember.computed(-> App.Game.findByAppId(@app_id).get('icon_url'))
 )
 
 App.Game = Ember.Object.extend(
