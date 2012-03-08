@@ -136,7 +136,7 @@
           <div class="no_games_msg"><p>We cannnot detect any games on your homepage or your feed :( </p></div>
           <div class="show_games_msg">
             <p>Here are the games we think you play.</p>
-            <ul class="game_names clearfix">
+            <ul id="games_list" class="game_names clearfix">
   {{#each App.gamesController.content }}
               <li class="game_name">
                 <input type="checkbox" checked="checked" />
