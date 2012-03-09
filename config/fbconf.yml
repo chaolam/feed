@@ -1,9 +1,0 @@
-development:
-  secret_key: 290cc262024082acda2e5545df9fbf00
-  app_id: 306365656083475
-test:
-  secret_key: 290cc262024082acda2e5545df9fbf00
-  app_id: 306365656083475
-production:
-  secret_key: 09dce9d357bb01d372db2278c523f707 
-  app_id: 308601275862032
