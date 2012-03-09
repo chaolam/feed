@@ -30,14 +30,17 @@ App.gamesController = Em.ArrayController.create(
   init: -> 
     $.when(FBMgr.fblogged_in).then($.proxy(@queryMyPosts, @))
   queryMyPosts: ->
+    $('#pop_content').addClass('fetching')
     FB.api({method:'fql.query',query:'select actor_id, created_time, app_id from stream where source_id=me() and actor_id=me() and type in (237, 272)'}, $.proxy(@filterPosts,@))
   queryGamePosts: ->
+    $('#pop_content').addClass('fetching')
     FB.api({method:'fql.query',query:'select actor_id, created_time, app_id from stream where filter_key="cg" limit 100'}, $.proxy(@filterPosts,@))
   filterPosts: (posts)->
     appIds = @appIds || []
     posts.forEach((post) -> if $.inArray(post.app_id, appIds)==-1 then appIds.push(post.app_id))
     @appIds = appIds
     @.set('content',appIds.map((appId)->App.Game.findByAppId(appId)))
+    $('#pop_content').removeClass('fetching')
 )
 
 App.SelectGameView = Em.View.extend(
@@ -45,6 +48,9 @@ App.SelectGameView = Em.View.extend(
   elementId: 'selg'
   classNameBindings: ['active']
   activeBinding: 'App.gamesController.active'
+  suggestMore: ->
+    $('#suggest_more').hide()
+    App.gamesController.queryGamePosts()
 )
 
 App.Post = Ember.Object.extend(

@@ -137,14 +137,16 @@
           <div class="show_games_msg">
             <p>Here are the games we think you play.</p>
             <ul id="games_list" class="game_names clearfix">
-  {{#each App.gamesController.content }}
+{{#each App.gamesController.content }}
               <li class="game_name">
                 <input type="checkbox" checked="checked" />
                 <img src="{{unbound icon_url }}" />
                 {{name}}
               </li>
-  {{/each}}
-            <li class="game_name"><a href="#" class="suggest">Suggest more...</a></li>
+{{/each}}
+              <li class="game_name">
+                <a href="#" class="suggest" id="suggest_more" {{action "suggestMore"}}>Suggest more...</a>
+              </li>
             </ul>
           </div>
           <div class="dialog_buttons"><input type="button" value="Done"/></div>
