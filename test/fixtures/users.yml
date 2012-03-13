@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  facebook_uid: 1
+  deleted: false
+
+two:
+  facebook_uid: 1
+  deleted: false

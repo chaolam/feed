@@ -1,4 +1,6 @@
 class Game < ActiveRecord::Base
+  has_many :mygames, :dependent=>:destroy
+
   def self.get_by_app_id(app_id)
     game = self.find_by_app_id(app_id)
     return game if game

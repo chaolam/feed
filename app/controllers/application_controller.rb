@@ -3,19 +3,22 @@ class ApplicationController < ActionController::Base
 
 protected
   def fb_user
-    return @fb_token if @fb_token
+    return @user if @user
     oauth = koala_oauth
-    if params[:code]
-      begin
-        @fb_token = oauth.get_access_token(params[:code])
-      rescue Exception=>e
-        @fb_token = @fb_user = nil
-      end
-    else
-      user_info = oauth.get_user_info_from_cookies(cookies)
-      @fb_token = user_info && user_info['access_token']
+    user_info = oauth.get_user_info_from_cookies(cookies)
+    if user_info
+      @fb_token = user_info['access_token']
+      @user = User.find_or_create_by_facebook_uid(user_info['user_id'])
+    elsif params[:code]
+      @fb_token = oauth.get_access_token(params[:code])
+      graph = Koala::Facebook::GraphAPI.new(@fb_token)
+      user_info = graph.api('/me')
+      @user = User.find_or_create_by_facebook_uid(user_info['id'])
     end
-    @fb_token
+    @user
+  rescue Exception=>e
+    raise e
+    @user = @fb_token = nil
   end
 
   def require_fb_user

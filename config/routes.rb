@@ -1,4 +1,6 @@
 Feed::Application.routes.draw do
+  resources :mygames
+
   root :to=>'feeds#index'
   resources :feeds
   

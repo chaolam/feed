@@ -1,4 +1,34 @@
-<script type='text/x-handlebars' data-template-name='post'><span>
+<script type="text/x-handlebars" data-template-name="select-games">
+    <div id="overlay"></div>
+    <div class="generic_dialog">
+      <div class="generic_dialog_popup">
+        <div id="pop_content" class="pop_content">
+          <div class="close"><a href="#" {{action "close"}}>X</a></div>
+          <h2>Select the games you play to see the feed</h2>
+          <div class="no_games_msg"><p>We cannnot detect any games on your homepage or your feed :( </p></div>
+          <div class="show_games_msg">
+            <p>Here are the games we think you play.</p>
+            <ul id="games_list" class="game_names clearfix">
+{{#each App.gamesController.content }}
+              <li class="game_name">
+                <input {{bindAttr id="appid"}} type="checkbox" checked="checked" />
+                <img src="{{unbound icon_url }}" />
+                {{name}}
+              </li>
+{{/each}}
+              <li class="game_name">
+                <a href="#" class="suggest" id="suggest_more" {{action "suggestMore"}}>Suggest more...</a>
+              </li>
+            </ul>
+          </div>
+          <div class="dialog_buttons"><input type="button" {{action "save"}} value="Save"/></div>
+          
+        </div>
+      </div>
+    </div>
+</script>
+
+<script type='text/x-handlebars' data-template-name='post'>
 {{#with content}}
   <div class="row">
     <a href="http://www.facebook.com/profile.php?id={{unbound actor_id}}" class="fb_pic">
@@ -17,7 +47,7 @@
       <div class="UIActionLinks">
         <img class="icon_img" src="{{unbound game_icon}}" width=16 height=16>
         <span class="uiStreamSource">
-          <abbr class="timestamp"><a target="_blank" href="{{unbound permalink}}">1 minute ago</a></abbr>
+          <abbr class="timestamp"><a target="_blank" href="{{unbound permalink}}">{{ created_time }}</a></abbr>
         </span>
 {{#if actionText }}
         <span class="UIActionLinks"> · <a target="_blank" href="{{unbound postLink}}">{{actionText}}</a></span>
@@ -39,60 +69,26 @@
   </div>
   My Game Feedsss
 </h1>
-<div class="tellme"><img src="pencil.png" class="icon_img"><a href="#">Edit Games</a></div>
+<script type="text/x-handlebars">
+<div class="tellme"><img src="pencil.png" class="icon_img">
+  <a href="#" onclick="App.showGameSelector()">Edit Games</a>
+</div>
 <ul class="tabnav"> 
-  <li class="active filter" id="filter_all">
-    <a href="javascript:void(0)" onclick="ActivityLog.setFilter('all');">All Feed</a>
-  </li> 
-  <li id="filter_102452128776">
-    <a href="javascript:void(0)" onmouseout="$('game_102452128776').hide()" onmouseover="$('game_102452128776').show()" onclick="ActivityLog.setFilter(102452128776);">
-      <img src="http://photos-a.ak.fbcdn.net/photos-ak-sf2p/v43/144/102452128776/app_2_102452128776_416.gif" class="icon_img" alt="FarmVille">
-    </a>
-    <div style="display:none" class="tips_help" id="game_102452128776">FarmVille</div>
-  </li>
-  <li id="filter_101539264719">
-    <a href="javascript:void(0)" onmouseout="$('game_101539264719').hide()" onmouseover="$('game_101539264719').show()" onclick="ActivityLog.setFilter(101539264719);">
-      <img src="http://photos-h.ak.fbcdn.net/photos-ak-sf2p/v43/39/101539264719/app_2_101539264719_1610.gif" class="icon_img" alt="Café World">
-    </a>
-    <div style="display:none" class="tips_help" id="game_101539264719">Café World</div>
-  </li>
-  <li id="filter_291549705119">
-    <a href="javascript:void(0)" onmouseout="$('game_291549705119').hide()" onmouseover="$('game_291549705119').show()" onclick="ActivityLog.setFilter(291549705119);">
-      <img src="http://photos-f.ak.fbcdn.net/photos-ak-snc1/v27562/71/291549705119/app_2_291549705119_3378.gif" class="icon_img" alt="CityVille"> 
-    </a>
-    <div style="display:none" class="tips_help" id="game_291549705119">CityVille</div>
-  </li>
-  <li id="filter_164285363593426">
-    <a href="javascript:void(0)" onmouseout="$('game_164285363593426').hide()" onmouseover="$('game_164285363593426').show()" onclick="ActivityLog.setFilter(164285363593426);">
-      <img src="http://photos-a.ak.fbcdn.net/photos-ak-snc1/v43/166/164285363593426/app_2_164285363593426_6830.gif" class="icon_img" alt="Empires &amp; Allies"> 
-    </a>
-    <div style="display:none" class="tips_help" id="game_164285363593426">Empires &amp; Allies</div>
-  </li>
-  <li style="" id="filter_144959615576466">
-    <a href="javascript:void(0)" onmouseout="$('game_144959615576466').hide()" onmouseover="$('game_144959615576466').show()" onclick="ActivityLog.setFilter(144959615576466);">
-      <img src="http://photos-f.ak.fbcdn.net/photos-ak-snc1/v43/222/144959615576466/app_2_144959615576466_4719.gif" class="icon_img" alt="The Sims Social"> 
-    </a>
-    <div style="display: none;" class="tips_help" id="game_144959615576466">The Sims Social</div>
-  </li>
-  <li  id="filter_266989143414">
-    <a href="javascript:void(0)" onmouseout="$('game_266989143414').hide()" onmouseover="$('game_266989143414').show()" onclick="ActivityLog.setFilter(266989143414);">
-      <img src="http://photos-e.ak.fbcdn.net/photos-ak-snc1/v43/210/266989143414/app_2_266989143414_4419.gif" class="icon_img" alt="Pioneer Trail"> 
-    </a>
-    <div style="display:none" class="tips_help" id="game_266989143414">Pioneer Trail</div>
-  </li>
-  <li id="filter_130479640376964">
-    <a href="javascript:void(0)" onmouseout="$('game_130479640376964').hide()" onmouseover="$('game_130479640376964').show()" onclick="ActivityLog.setFilter(130479640376964);">
-      <img src="http://photos-c.ak.fbcdn.net/photos-ak-snc1/v43/60/130479640376964/app_2_130479640376964_3480.gif" class="icon_img" alt="Adventure World">
-    </a>
-    <div style="display:none" class="tips_help" id="game_130479640376964">Adventure World</div>
-  </li>
-  <li id="filter_107040076067341">
-    <a href="javascript:void(0)" onmouseout="$('game_107040076067341').hide()" onmouseover="$('game_107040076067341').show()" onclick="ActivityLog.setFilter(107040076067341);">
-      <img src="http://photos-e.ak.fbcdn.net/photos-ak-snc1/v43/109/107040076067341/app_2_107040076067341_5448.gif" class="icon_img" alt="CastleVille"> 
-    </a>
-    <div style="display: none;" class="tips_help" id="game_107040076067341">CastleVille</div>
-  </li>
+{{#each App.selectedGames }}
+{{#view App.GameFilterView contentBinding="this"}}
+{{#with content}}
+  <a href="javascript:void(0)">
+{{#if icon_url }}
+    <img {{bindAttr src="icon_url"}} class="icon_img" {{bindAttr alt="name"}}>
+{{else}}
+    {{name}}
+{{/if}}
+  </a>
+{{/with}}
+{{/view}}
+{{/each }}
 </ul>
+</script>
 <h3 class="sub">
   <div class="tellme">(<a href="javascript:Element.toggle('whats_1bonuses'); void(0);" class="tell_me_more">What's this?</a>)</div>
   <div class="one_click_bonus">
@@ -125,39 +121,6 @@
 <div class="row_wrap" id="feed">
 </div>
 
-<script type="text/x-handlebars">
-{{#view App.SelectGameView}}
-    <div id="overlay"></div>
-    <div class="generic_dialog">
-      <div class="generic_dialog_popup">
-        <div id="pop_content" class="pop_content">
-          <div class="close"><a href="#">X</a></div>
-          <h2>Select the games you play to see the feed</h2>
-          <div class="no_games_msg"><p>We cannnot detect any games on your homepage or your feed :( </p></div>
-          <div class="show_games_msg">
-            <p>Here are the games we think you play.</p>
-            <ul id="games_list" class="game_names clearfix">
-{{#each App.gamesController.content }}
-              <li class="game_name">
-                <input type="checkbox" checked="checked" />
-                <img src="{{unbound icon_url }}" />
-                {{name}}
-              </li>
-{{/each}}
-              <li class="game_name">
-                <a href="#" class="suggest" id="suggest_more" {{action "suggestMore"}}>Suggest more...</a>
-              </li>
-            </ul>
-          </div>
-          <div class="dialog_buttons"><input type="button" value="Done"/></div>
-          
-        </div>
-      </div>
-    </div>
-{{/view}}
-</script>
-
 <script>
-var feedView = App.FeedView.create();
-feedView.appendTo('#feed');
+App.appInit(<%= raw @games %>);
 </script>

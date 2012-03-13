@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120301212852) do
+ActiveRecord::Schema.define(:version => 20120312182305) do
 
   create_table "games", :force => true do |t|
     t.string   "app_id"
@@ -25,5 +25,22 @@ ActiveRecord::Schema.define(:version => 20120301212852) do
   end
 
   add_index "games", ["app_id"], :name => "index_games_on_app_id"
+
+  create_table "mygames", :force => true do |t|
+    t.string   "game_id"
+    t.string   "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "mygames", ["game_id"], :name => "index_mygames_on_game_id"
+  add_index "mygames", ["user_id"], :name => "index_mygames_on_user_id"
+
+  create_table "users", :force => true do |t|
+    t.integer  "facebook_uid", :limit => 8
+    t.boolean  "deleted",                   :default => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+  end
 
 end
