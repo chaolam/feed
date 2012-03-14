@@ -87,7 +87,7 @@ App.postsController = Em.ArrayController.create(
     appids = App.get('selectedAppids')
     posts = @friendPosts
     selectedGame = App.filterGameController.filter
-    appPosts = posts.filter((post)-> selectedGame.get('appids').indexOf(post.app_id) != -1)
+    appPosts = posts.filter((post)-> selectedGame.get('appids').indexOf(post.app_id) != -1).slice(0,200)
     @set('content', appPosts.map((post)-> App.Post.create(post)))
 )
 
@@ -142,6 +142,7 @@ App.Post = Ember.Object.extend(
   actionText: Ember.computed(-> @action_links && @action_links[0].text)
   postLink: Ember.computed(-> @attachment && @attachment.href || @action_links && @action_links[0].href)
   game_icon: Ember.computed(-> App.Game.findByAppId(@app_id).get('icon_url'))
+  relative_time: Em.computed(-> new Date(@created_time*1000).toRelativeTime())
 )
 
 App.Game = Ember.Object.extend(
