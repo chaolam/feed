@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(:version => 20120312182305) do
   add_index "games", ["app_id"], :name => "index_games_on_app_id"
 
   create_table "mygames", :force => true do |t|
-    t.string   "game_id"
-    t.string   "user_id"
+    t.integer  "game_id"
+    t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
