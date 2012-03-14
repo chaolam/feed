@@ -1,2 +1,3 @@
 require 'ostruct'
-FBConf = OpenStruct.new(YAML.load_file(Rails.root.to_s + '/config/fbconf.yml')[ENV['RAILS_ENV'] || 'development'].symbolize_keys)
+config = (YAML.load_file(Rails.root.to_s + '/config/fbconf.yml')[Rails.env] rescue {}).merge(ENV)
+FBConf = OpenStruct.new(config)
