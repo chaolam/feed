@@ -4,6 +4,7 @@
   selectedAppids: null
   allGamesObj: Em.Object.create(
     name:'All Feed'
+    isAllFeed: true
     appidsBinding: 'App.selectedAppids'
   )
   selectedGames: Em.computed(->
@@ -65,6 +66,10 @@ App.postsController = Em.ArrayController.create(
   selectedGameBinding: 'App.filterGameController.filter'
   init: ->
     App.filterGameController.addObserver('filter', $.proxy(@displayPosts, @))
+    App.addObserver('selectedAppids', $.proxy(@selectedGamesChanged, @))
+  selectedGamesChanged: ->
+    Em.run.sync()
+    @displayPosts() if @.get('selectedGame').isAllFeed
   loadPosts: ->
     args = {method:'stream.get',filter_key:'cg'}
     if @lastChecked
