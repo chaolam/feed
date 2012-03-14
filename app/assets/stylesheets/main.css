@@ -4,7 +4,7 @@
   }
 body {  background:#fff; margin: 0; color:#000; font-family:"Lucida Grande",Lucida,Verdana,sans-serif;  font-size:71%; line-height:165%;}
 h1 { font-size:20px; margin:10px 0 10px; overflow:hidden; border-bottom:1px dotted #ddd; padding-bottom:10px;}
-h3.sub { font-size:11px; background:#F2F2F2; color:#333; padding:2px 10px; border:1px solid #ECECE3; border-width:0 0 2px 0; overflow:hidden; font-weight:normal;}
+h3.sub { clear:both; font-size:11px; background:#F2F2F2; color:#333; padding:2px 10px; border:1px solid #ECECE3; border-width:0 0 2px 0; overflow:hidden; font-weight:normal;}
 a {
 cursor: pointer;
 color: #3B5998;
@@ -69,7 +69,7 @@ ul.tabnav li
     float: left;
     display:inline;
     font-size: 10px; 
-    line-height: 14px;
+    line-height: 17px;
     margin-right: 5px;
     color: #000;   
     position:relative;
@@ -90,7 +90,7 @@ ul.tabnav li
      } 
 
 ul.tabnav li a:hover { color:#333;}
-ul.tabnav li.active a { background:url(up-arrow.png) no-repeat bottom center; font-weight:bold; padding-bottom:10px;}
+ul.tabnav li.active a { background:url(up-arrow.png) no-repeat bottom center; font-weight:bold; padding-bottom:7px;}
 ul.tabnav li a img { opacity:0.4; filter:alpha(opacity=40); }
   ul.tabnav li.active a img, ul.tabnav li a:hover img { opacity:1; filter:none;}
 .row_wrap { margin-top:15px;}
@@ -216,7 +216,7 @@ input.radio { margin-left:10px;}
   outline: 0;
   -moz-box-shadow: 0 0 10px #999;
   -webkit-box-shadow: 0 0 10px #999;
-  box-shadow: 0 0 10px #999
+  box-shadow: 0 0 10px #999;
   border: 5px solid #333;
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
@@ -248,7 +248,7 @@ input.radio { margin-left:10px;}
 .pop_content a { text-decoration:underline;}
 .dialog_buttons { margin-top:10px; border-top:1px solid #ccc; text-align:right; background:#F5F5ED; margin:0 -10px; padding:10px;}
 
-.game_names { margin:10px 0 15px; background:url(snagable_bg.gif) repeat-y; overflow:hidden; list-style:none; font-size:11px;}
+.game_names { margin:10px 0 15px; background:url(snagable_bg.gif) repeat-y; overflow:hidden; list-style:none; font-size:11px; white-space:nowrap; overflow:hidden;}
 .game_name {float:left; width:197px; padding:6px; font-size:11px; }
  .suggest { margin:0 0 0 4px; font-size:12px;}
 .game_name span { margin-right:10px; font-size:10px;}
@@ -259,6 +259,7 @@ input.ex { color: #999999; font-style: oblique;}
 .no_games .show_games_msg { display:none;}
 .fetching { background:#fff url(ajax-loader-big.gif) no-repeat 50% 20px; overflow:hidden;}
   #pop_content.fetching { background-position:50%; min-height:100px;}
+    #pop_content.fetching * { opacity:0.4; filter:alpha(opacity=40); }
   #feed.fetching { background-position:50%; min-height:100px;}
 .left { float:left;}
 .right { float:right;}
