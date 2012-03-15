@@ -1,4 +1,4 @@
-Date.now = -> newDate().getTime() unless Date.now
+(Date.now = -> new Date().getTime()) unless Date.now
 
 Date.prototype.toRelativeTime = (now_threshold)->
   delta = new Date() - this

@@ -16,3 +16,5 @@
 //= require ember-0.9.5
 //= require date_mod
 //= require app
+//= require games
+//= require posts
