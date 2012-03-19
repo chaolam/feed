@@ -35,7 +35,7 @@
       <img src="http://graph.facebook.com/{{unbound actor_id}}/picture?type=square" />
     </a>
     <div class = "mainWrapper">
-      <h6 class="fb_name"><fb:name uid="{{unbound actor_id}}"></fb:name></h6>
+      <h6 class="fb_name"><fb:name uid="{{unbound actor_id}}" useyou="false"></fb:name></h6>
       <div class="avatar"><img src="{{unbound picSrc}}" /></div>
       <div class="comment_text">
 {{#if message }}
@@ -60,12 +60,16 @@
 
 <h1 class="clear">
   <div class="options">
+<script type="text/x-handlebars">
+{{#view App.FriendOrMeView}}
     <fieldset>
-      <input type="radio" checked="checked" class="radio" value="my_friends_post" name="feed_options">
-      <label>My Friends' Posts</label>
-      <input type="radio"  value="my_posts" class="radio" name="feed_options">
+      <input type="radio" checked="checked" class="radio" value="my_friends_post" name="feed_options" {{action "isFriend" on="change"}}>
+      <label>My Friends Posts</label>
+      <input type="radio"  value="my_posts" class="radio" name="feed_options" {{action "isMe" on="change"}}>
       <label>My Posts</label>
     </fieldset>
+{{/view}}
+</script>
   </div>
   My Game Feeds
 </h1>
@@ -118,7 +122,7 @@
   </div>
 </div>
 <div class="fetching"></div>
-<div class="row_wrap" id="feed">
+<div class="row_wrap fetching" id="feed">
 </div>
 
 <script>
