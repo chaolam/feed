@@ -2,6 +2,7 @@
   
 @App = Em.Application.create(
   selectedAppids: null
+  authorView: 'friends'
   allGamesObj: Em.Object.create(
     name:'All Feed'
     isAllFeed: true
@@ -14,13 +15,16 @@
     games
   ).property('selectedAppids').cacheable()
   appInit: (appids)->
-    @feedView = App.FeedView.create()
-    @feedView.appendTo('#feed')
+    @friendFeedView = App.FeedView.create(contentBinding:'App.friendPostsController')
+    @friendFeedView.appendTo('#feed')
+    @myFeedView = App.FeedView.create(contentBinding:'App.myPostsController')
+    @myFeedView.appendTo('#feed')
     self = @
     @initialAppids = appids
     $.when(FBMgr.fblogged_in).then(->
       self.set('selectedAppids', appids)
       App.friendPostsController.loadPosts()
+      App.myPostsController.loadPosts()
     )
   appidsStr: ->
     @selectedAppids.join(',')
