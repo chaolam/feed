@@ -53,6 +53,7 @@ App.PostsController = Em.ArrayController.extend(
     rfn(posts.length)
     posts = posts.concat(@posts) if @lastChecked
     @set('lastChecked', posts[0].created_time) if posts && posts[0]
+    posts = posts.sort((a,b)->b.created_time - a.created_time).slice(0,200)
     @set('posts', posts)
     @displayPosts()
   displayPosts: ->
@@ -60,19 +61,18 @@ App.PostsController = Em.ArrayController.extend(
     appids = App.get('selectedAppids')
     posts = @get('posts')
     selectedGame = App.filterGameController.filter
-    appPosts = posts.filter((post)-> selectedGame.get('appids').indexOf(post.app_id) != -1).slice(0,200)
+    appPosts = posts.filter((post)-> selectedGame.get('appids').indexOf(post.app_id) != -1)
     @set('content', appPosts)
 )
 
 App.friendPostsController = App.PostsController.create(
   author: 'friends'
-  loadPosts: ->
+  loadPosts: (limit)->
     args = {method:'stream.get',filter_key:'cg'}
-    if @lastChecked
+    if !limit && @lastChecked
       args.start_time = @lastChecked
     else
-      @set('content',[])
-      args.limit = 50
+      args.limit = limit if limit
     FB.api(args, $.proxy(@receiveStreamPosts, @))
   receiveStreamPosts: (r)->
     @receivePosts(r.posts)

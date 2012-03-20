@@ -24,6 +24,7 @@
     $.when(FBMgr.fblogged_in).then(->
       self.set('selectedAppids', appids)
       App.friendPostsController.loadPosts()
+      App.friendPostsController.loadPosts(200)
       App.myPostsController.loadPosts()
     )
   appidsStr: ->
