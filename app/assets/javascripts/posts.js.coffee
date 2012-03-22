@@ -1,13 +1,15 @@
 App.FeedView = Em.CollectionView.extend(
   itemViewClass:'App.PostView'
   fetching: true
-  classNameBindings:['fetching']
+  hasNoPosts: false
+  classNameBindings:['fetching', 'hasNoPosts']
   init: ->
     @_super()
     Em.run.sync()
     App.addObserver('authorView', $.proxy(@checkVisibility,@))
     @checkVisibility()
-    @.get('content').addObserver('lastChecked', $.proxy(@checkFetching,@))
+    @get('content').addObserver('lastChecked', $.proxy(@checkFetching,@))
+    @get('content').addObserver('hasPosts', $.proxy(@checkHasPosts,@))
   arrayDidChange: (content, start, removed, added)-> 
     @_super(content, start, removed, added);
     Em.run.next(null,-> FB.XFBML.parse() if window.FB)
@@ -15,8 +17,8 @@ App.FeedView = Em.CollectionView.extend(
     @set('isVisible', App.get('authorView') == @.get('content').get('author'))
   checkFetching: ->
     @.set('fetching', !@get('content').get('lastChecked'))
-  postsController: ->
-    if @.get('authorView') == 'friends' then App.friendPostsController else App.myPostsController
+  checkHasPosts: ->
+    @set('hasNoPosts', !@get('content').get('hasPosts'))
 )
 
 App.PostView = Em.View.extend(
@@ -33,6 +35,7 @@ App.FriendOrMeView = Em.View.extend(
 App.PostsController = Em.ArrayController.extend(
   content:[]
   lastChecked: null
+  hasPosts: true
   author: 'unknown'
   lastDisplay: 0
   selectedGameBinding: 'App.filterGameController.filter'
@@ -40,7 +43,7 @@ App.PostsController = Em.ArrayController.extend(
   init: ->
     App.filterGameController.addObserver('filter', $.proxy(@gameFilterChanged, @))
     App.addObserver('selectedAppids', $.proxy(@selectedGamesChanged, @))
-    @timer = window.setInterval($.proxy(@loadPosts,@), 60000)
+    @timer = window.setInterval((=>@loadPosts()), 60000) if @doTimer
   gameFilterChanged: ->
     window.clearTimeout(@lastDisplayTimer) if @lastDisplayTimer
     @lastDisplayTimer = @lastDisplay = 0
@@ -59,34 +62,37 @@ App.PostsController = Em.ArrayController.extend(
     posts = posts.filter((post)-> self.hasPost(post)) 
     rfn(posts.length)
     posts = posts.concat(@posts) if @lastChecked
-    @set('lastChecked', posts[0].created_time) if posts && posts[0]
     posts = posts.sort((a,b)->b.created_time - a.created_time).slice(0,400)
+    @set('lastChecked', posts && posts[0] && posts[0].created_time || parseInt(Date.now()/1000))
     @set('posts', posts)
     @displayPosts()
   displayPosts: ->
     return unless @lastChecked
-    if Date.now() < (@lastDisplay+10000)
+    if Date.now() < (@lastDisplay+5000)
       if !@lastDisplayTimer
-        @lastDisplayTimer = window.setTimeout($.proxy(@displayPosts, @), Date.now() - @lastDisplay + 10000)
+        @lastDisplayTimer = window.setTimeout($.proxy(@displayPosts, @), Date.now() - @lastDisplay + 5000)
       return
-    @lastDisplay = Date.now()
-    @lastDisplayTimer = null
     appids = App.get('selectedAppids')
     posts = @get('posts')
     selectedGame = App.filterGameController.filter
     appPosts = posts.filter((post)-> selectedGame.get('appids').indexOf(post.app_id) != -1)
+    if appPosts.length > 0
+      @lastDisplay = Date.now()
+      @lastDisplayTimer = null
     @set('content', appPosts)
+    @set('hasPosts', appPosts.length > 0)
 )
 
 App.friendPostsController = App.PostsController.create(
   author: 'friends'
+  doTimer: true
   initialLoad: ->
     @loadPosts()
     @loadPosts(200)
     window.setTimeout(=>
       App.get('selectedAppids').forEach((appid)=>@loadAppPost(appid))
     ,2000)
-  loadPosts: (limit)->
+  loadPosts: (limit=0)->
     args = {method:'stream.get',filter_key:'cg'}
     if !limit && @lastChecked
       args.start_time = @lastChecked
@@ -107,6 +113,8 @@ App.myPostsController = App.PostsController.create(
 )
     
 App.Post = Ember.Object.extend(
+  row: true
+  collapsed: false
   title: Ember.computed(-> @attachment.name || @attachment.caption)
   picSrc: Ember.computed(->
     @attachment.media[0] && @attachment.media[0].src ||
@@ -118,5 +126,7 @@ App.Post = Ember.Object.extend(
   relative_time: Em.computed(-> new Date(@created_time*1000).toRelativeTime())
   identical: (post)->
     @get('postLink') == post.get('postLink')
+  getUrl: ->
+    @.get('postLink')
 )
   

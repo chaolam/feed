@@ -18,3 +18,4 @@
 //= require app
 //= require games
 //= require posts
+//= require multi_url_opener

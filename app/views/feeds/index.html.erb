@@ -30,7 +30,7 @@
 
 <script type='text/x-handlebars' data-template-name='post'>
 {{#with content}}
-  <div class="row">
+  <div {{bindAttr class="row collapsed"}}>
     <div class="dont_click"><a href="javascript:void(0)">Do not collect with 1-click bonuses</a></div>
     <a href="http://www.facebook.com/profile.php?id={{unbound actor_id}}" class="fb_pic">
       <img src="http://graph.facebook.com/{{unbound actor_id}}/picture?type=square" />
@@ -62,6 +62,10 @@
     </div>
   </div>
 {{/with}}
+</script>
+
+<script type='text/x-handlebars' data-template-name='no-posts'>
+  <p>Sorry, no feeds are found. Check back later.</p>
 </script>
 
 <h1 class="clear">
@@ -114,7 +118,11 @@
       <option value="45">45 secs</option>
       <option value="60">60 secs</option>
     </select>
-    <a onclick="FeedMgr.clickPosts(); return false" href="#" class="gu_button">Collect!</a>
+<script type="text/x-handlebars">
+{{#view App.OneClickView }}
+    <a {{action "start"}}  href="#" class="gu_button">Collect!</a>
+{{/view}}
+</script>
   </div>
 </h3>
 <div style="display:none;" id="whats_1bonuses">
@@ -129,7 +137,7 @@
   </div>
 </div>
 <div class="fetching"></div>
-<div class="row_wrap" id="feed"><p>Sorry, no feeds are found. Check back later.</p>
+<div class="row_wrap" id="feed">
 </div>
 
 <script>

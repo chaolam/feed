@@ -1,5 +1,6 @@
-class MultiUrlOpener
-  constructor: (@urls, options={})
+@MultiUrlOpener = class MultiUrlOpener
+  constructor: (urlObjs, options={})->
+    @urlObjs = (obj for obj in urlObjs)
     @stepCB = options.stepCB
     @stepEndCB = options.stepEndCB
     @finalCB = options.finalCB
@@ -9,21 +10,21 @@ class MultiUrlOpener
     @specs = options.windowSpecs ||
       "width=640,height=500, left=" + ((window.screenLeft||window.screenX)+leftOffset) + ",top=" +
       ((window.screenTop||window.screenY)+topOffset);
-    @index = 0
   start: ->
-    firstUrl = @urls.shift()
-    if firstUrl
+    @urlObj = @urlObjs.shift()
+    if @urlObj
+      firstUrl = @urlObj.getUrl()
       @popupWindow = window.open(firstUrl, '', this.specs)
-      @stepCB(0) if (@stepCB)
+      @stepCB(@urlObj) if (@stepCB)
       @timer = window.setInterval($.proxy(@next,@), @delay)
-      ++@index
   next: ->
-    url = @urls.shift()
-    if !@popupWindow.closed && url
+    @prevObj = @urlObj
+    @urlObj = @urlObjs.shift()
+    if !@popupWindow.closed && @urlObj
+      url = @urlObj.getUrl()
       @popupWindow.location = url
-      @stepEndCB(@index-1) if (@index > 0 && @stepEndCB)
-      @stepCB(@index) if @stepCB
-      ++@index
+      @stepEndCB(@prevObj) if (@prevObj && @stepEndCB)
+      @stepCB(@urlObj) if @stepCB
     else
       @popupWindow.close()
       window.clearInterval(@timer)

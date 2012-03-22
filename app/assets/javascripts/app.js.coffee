@@ -34,5 +34,20 @@
     @selectGameView.set('isVisible', @initialAppids.length == 0)
   showGameSelector: ->
     @selectGameView.set('isVisible', true)
+  postsController: ->
+    if @.get('authorView') == 'friends' then App.friendPostsController else App.myPostsController
 )
 
+App.OneClickView = Em.View.extend(
+  start: ->
+    posts = App.postsController().content
+    App.muo = @muo = new MultiUrlOpener(posts, {
+      stepEndCB: (post)->post.set('collapsed', true)
+      finalCB: -> console.log('muo ended!')
+    })
+    @muo.start()
+)
+
+App.EmptyView = Em.View.extend(
+  templateName: 'no-posts'
+)
