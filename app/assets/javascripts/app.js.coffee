@@ -23,8 +23,7 @@
     @initialAppids = appids
     $.when(FBMgr.fblogged_in).then(->
       self.set('selectedAppids', appids)
-      App.friendPostsController.loadPosts()
-      App.friendPostsController.loadPosts(200)
+      App.friendPostsController.initialLoad()
       App.myPostsController.loadPosts()
     )
   appidsStr: ->

@@ -15,6 +15,8 @@ App.FeedView = Em.CollectionView.extend(
     @set('isVisible', App.get('authorView') == @.get('content').get('author'))
   checkFetching: ->
     @.set('fetching', !@get('content').get('lastChecked'))
+  postsController: ->
+    if @.get('authorView') == 'friends' then App.friendPostsController else App.myPostsController
 )
 
 App.PostView = Em.View.extend(
@@ -30,14 +32,19 @@ App.FriendOrMeView = Em.View.extend(
     
 App.PostsController = Em.ArrayController.extend(
   content:[]
-  lastChecked: null,
+  lastChecked: null
   author: 'unknown'
+  lastDisplay: 0
   selectedGameBinding: 'App.filterGameController.filter'
   posts: []
   init: ->
-    App.filterGameController.addObserver('filter', $.proxy(@displayPosts, @))
+    App.filterGameController.addObserver('filter', $.proxy(@gameFilterChanged, @))
     App.addObserver('selectedAppids', $.proxy(@selectedGamesChanged, @))
     @timer = window.setInterval($.proxy(@loadPosts,@), 60000)
+  gameFilterChanged: ->
+    window.clearTimeout(@lastDisplayTimer) if @lastDisplayTimer
+    @lastDisplayTimer = @lastDisplay = 0
+    @displayPosts()
   selectedGamesChanged: ->
     Em.run.sync()
     @displayPosts() if @.get('selectedGame').isAllFeed
@@ -53,11 +60,17 @@ App.PostsController = Em.ArrayController.extend(
     rfn(posts.length)
     posts = posts.concat(@posts) if @lastChecked
     @set('lastChecked', posts[0].created_time) if posts && posts[0]
-    posts = posts.sort((a,b)->b.created_time - a.created_time).slice(0,200)
+    posts = posts.sort((a,b)->b.created_time - a.created_time).slice(0,400)
     @set('posts', posts)
     @displayPosts()
   displayPosts: ->
     return unless @lastChecked
+    if Date.now() < (@lastDisplay+10000)
+      if !@lastDisplayTimer
+        @lastDisplayTimer = window.setTimeout($.proxy(@displayPosts, @), Date.now() - @lastDisplay + 10000)
+      return
+    @lastDisplay = Date.now()
+    @lastDisplayTimer = null
     appids = App.get('selectedAppids')
     posts = @get('posts')
     selectedGame = App.filterGameController.filter
@@ -67,6 +80,12 @@ App.PostsController = Em.ArrayController.extend(
 
 App.friendPostsController = App.PostsController.create(
   author: 'friends'
+  initialLoad: ->
+    @loadPosts()
+    @loadPosts(200)
+    window.setTimeout(=>
+      App.get('selectedAppids').forEach((appid)=>@loadAppPost(appid))
+    ,2000)
   loadPosts: (limit)->
     args = {method:'stream.get',filter_key:'cg'}
     if !limit && @lastChecked
@@ -74,7 +93,10 @@ App.friendPostsController = App.PostsController.create(
     else
       args.limit = limit if limit
     FB.api(args, $.proxy(@receiveStreamPosts, @))
+  loadAppPost: (appid)->
+    FB.api({method:'stream.get',filter_key:'app_'+appid}, $.proxy(@receiveStreamPosts, @))
   receiveStreamPosts: (r)->
+    console.log('fpc no posts!', r) if (!r.posts)
     @receivePosts(r.posts)
 )
 

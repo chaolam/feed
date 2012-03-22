@@ -260,7 +260,7 @@ input.ex { color: #999999; font-style: oblique;}
 .fetching { background:#fff url(ajax-loader-big.gif) no-repeat 50% 20px; overflow:hidden;}
   #pop_content.fetching { background-position:50%; min-height:100px;}
     #pop_content.fetching * { opacity:0.4; filter:alpha(opacity=40); }
-  #feed div.fetching { background-position:50%; min-height:100px;}
+  #feed .fetching { background-position:50%; min-height:100px;}
 .left { float:left;}
 .right { float:right;}
 .center { text-align:center; }
