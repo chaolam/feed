@@ -31,6 +31,7 @@
 <script type='text/x-handlebars' data-template-name='post'>
 {{#with content}}
   <div class="row">
+    <div class="dont_click"><a href="javascript:void(0)">Do not collect with 1-click bonuses</a></div>
     <a href="http://www.facebook.com/profile.php?id={{unbound actor_id}}" class="fb_pic">
       <img src="http://graph.facebook.com/{{unbound actor_id}}/picture?type=square" />
     </a>
@@ -54,7 +55,12 @@
 {{/if}}
       </div>
     </div>
-  </div>  
+  </div>
+  <div class="clicked">
+    <div class="uiAttachmentTitle">
+      <a target="_blank" href="{{unbound postLink}}">{{title}}</a>
+    </div>
+  </div>
 {{/with}}
 </script>
 
@@ -84,6 +90,7 @@
   <a href="javascript:void(0)">
 {{#if icon_url }}
     <img {{bindAttr src="icon_url"}} class="icon_img" {{bindAttr alt="name"}}>
+    <div class="tips_help">{{name}}</div>
 {{else}}
     {{name}}
 {{/if}}
@@ -122,7 +129,7 @@
   </div>
 </div>
 <div class="fetching"></div>
-<div class="row_wrap" id="feed">
+<div class="row_wrap" id="feed"><p>Sorry, no feeds are found. Check back later.</p>
 </div>
 
 <script>

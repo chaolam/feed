@@ -1,0 +1,276 @@
+@mixin rounded($radius) {
+  -webkit-border-radius:$radius;
+  -moz-border-radius:$radius;
+  border-radius:$radius;
+}
+@mixin boxshadow($x, $y, $blur, $color) {
+  -webkit-box-shadow: $x $y $blur $color;
+  -moz-box-shadow:$x $y $blur $color;
+  box-shadow: $x $y $blur $color;
+}
+
+* {
+  margin: 0;
+  padding:0;
+  }
+body {  background:#fff; margin: 0; color:#000; font-family:"Lucida Grande",Lucida,Verdana,sans-serif;  font-size:71%; line-height:165%;}
+h1 { font-size:20px; margin:10px 0 10px; overflow:hidden; border-bottom:1px dotted #ddd; padding-bottom:10px;}
+h3.sub { clear:both; font-size:11px; background:#F2F2F2; color:#333; padding:2px 10px; border:1px solid #ECECE3; border-width:0 0 2px 0; overflow:hidden; font-weight:normal;}
+a {
+  cursor: pointer;
+  color: #3B5998;
+  text-decoration:none;
+  &:hover {
+    text-decoration:underline;
+  }
+}
+
+#contentCol {
+border-left: 1px solid #CCC;
+padding:10px 15px 15px;
+overflow:hidden;
+}
+
+ul.tabnav {     
+  text-transform:uppercase;  
+  font-family:'Arial', 'Verdana', sans-serif;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  width:auto;
+  margin-right:0;
+  border-bottom:1px dotted #999;
+  li {
+      margin: 0; 
+      padding: 0;
+      display: inline;
+      list-style-type: none; 
+      float: left;
+      display:inline;
+      font-size: 10px; 
+      line-height: 17px;
+      margin-right: 5px;
+      color: #000;   
+      position:relative;
+    
+      a:hover { color:#333; 
+        img { opacity:1; filter:none;}
+      }
+      a img { opacity:0.4; filter:alpha(opacity=40); }
+      &.active a { background:url(<%= asset_path 'up-arrow.png' %>) no-repeat bottom center; font-weight:bold; padding-bottom:7px;
+        img { opacity:1; filter:none;}
+      }
+  }
+  
+   a:link, a:visited, span { 
+     border:none;
+     text-decoration: none;
+     color: #000; 
+     display:block;    
+     background:none; 
+     outline:none; 
+     padding: 6px;
+     height:auto;
+  } 
+}  
+.row_wrap { margin-top:15px;}
+.row { 
+  float:left; 
+  display:inline;
+  border-bottom:1px dotted #ccc;
+  padding:5px 5px 5px 0;  
+  width:100%; 
+  &:hover { 
+    background:#fafafa;
+    .dont_click { visibility:visible; }
+    }
+}        
+.clicked { display:none; }
+.collapsed {
+  .fb_pic, .mainWrapper { display:none; }
+  .clicked { display:block; background:url(<%= asset_path 'tick.png' %>) no-repeat top left; padding-left:20px;}
+}
+div.dont_click { 
+  float:right; text-align:left; visibility:hidden; padding:5px 10px 0 4px; margin:0; font-size:10px; font-family:Arial;  color:#777; 
+   a { color:#aaa; background:url(<%= asset_path 'cross.png' %>)  no-repeat center left; padding-left:20px; }
+   a:hover { color:#666; }
+}
+
+div.tips_help {
+  display:none;
+  position:absolute;  
+  z-index:10000;
+  top:-25px;
+  left:0px;  
+  border: 1px solid #000;
+  color: #FFF;
+  font-size:10px;
+  font-weight:bold;
+  background: #666;
+  @include boxshadow(0, 0, 3px, #999);
+  @include rounded(3px);
+  padding:4px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  overflow: visible;
+}
+
+  ul.tabnav li a:hover .tips_help { display:block; }
+
+.fb_pic { 
+  float:left; margin-right:8px;
+  img { width:25px; height:25px;}
+}
+
+.mainWrapper { margin-left:29px; }
+
+div.uiAttachmentTitle { font-weight:bold; }
+abbr { border:none;}
+.uiStreamSource, .UIActionLinks, .uiStreamSource a, .timestamp { color:#808080; font-size:11px; }
+.uiStreamSource a:hover, .timestamp a:hover { text-decoration:underline;}
+.uiAttachmentTitle a:visited, .UIActionLinks a:visited { color:#999; text-decoration:line-through; }
+.uiAttachmentTitle a.snaggable:visited, .UIActionLinks a.snaggable:visited { color:#999; text-decoration:none; }
+.fb_name  { font-size:12px; margin:0 0 4px 0; }
+.uiStreamMessage {font-size:12px; margin:0; 
+  .messageBody { 
+    color: #000000;
+    font-size: 11px;
+    font-weight: normal;
+    margin:0 0 5px 0;
+  }
+}
+
+.avatar { 
+  float:left; margin:0px 10px 0 0; 
+  img { max-height: 50px; max-width: 50px; }
+}
+.row {
+  p { font-size:11px; margin:0 7px 0 0; color:gray; }
+}
+
+a.gu_button, input.gu_button, span.gu_button
+{
+  background:#9B1212; 
+  color:#FFFFFF;
+  font-size:10px;
+  margin:5px 0;
+  padding:0px 10px;
+  text-align:center;
+  @include rounded(10px);
+  text-decoration:none;
+  border:none;
+  cursor:pointer;
+  display: inline-block;
+  zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+  *display: inline;
+  vertical-align: baseline;
+  outline: none;
+  cursor: pointer;
+  font-weight:bold;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0 1px 1px rgba(0,0,0,.3);
+  @include boxshadow(0, 0px, 3px, #999);
+  
+  &:hover { text-decoration:none; background:#DD143F; }
+}
+
+fieldset { border:none; font-weight:normal; }
+label { margin:0 0 0 2px;}
+input {
+  &.text { border:1px solid #BDC7D8; padding:2px; width:99%;}    
+  &.radio { margin-left:10px;}
+  &.ex { color: #999999; font-style: oblique;}
+}
+
+.one_click_bonus { float:left; width:530px; }
+.what_is { 
+  background:#fafafa; border:1px dotted #ccc; padding:10px; margin-bottom:10px; 
+  ul { margin-left:15px;}
+}
+
+.options { float:right; font-size:10px; margin-left:10px;}
+
+#overlay {
+  display: block; position: absolute; top:0; left: 0pt; z-index: 1000; width: 100%; height: 3485px;  background-image: url(<%= asset_path 'overlay.png' %>); 
+}
+
+/* Div Overlay */
+.generic_dialog{ 
+  height:0;left:0;overflow:visible;position:absolute;top:0;width:100%;z-index:1010; padding:0;
+  div.close { 
+    float:right; font-size:12px; margin:10px 12px 0 0; font-weight:bold;
+    a { color:#333; text-decoration:none; }
+  }
+}
+
+/* using css rather than js to position the box in the center of the window */
+.generic_dialog_popup {
+  position:fixed;
+  top:300px;
+  left:48%;
+  margin-left:-334px; 
+  margin-top:-100px;
+  width:668px;
+  z-index:10000;
+  border-color: #999;
+  background:rgba(82,82,82,0.6);
+  outline: 0;
+  @include boxshadow(0, 0px, 10px, #999);
+  border: 5px solid #333;
+  @include rounded(8px);
+  } 
+
+  * html .generic_dialog_popup
+   {
+     position: absolute; 
+     margin-top:120px;
+     top:expression(eval(document.compatMode &&
+     document.compatMode=='CSS1Compat') ?
+     documentElement.scrollTop+((documentElement.clientHeight-this.clientHeight)/2 - 155)
+     : document.body.scrollTop
+     +((document.body.clientHeight-this.clientHeight)/2 -155));
+   }  
+
+.pop_content{ 
+  background:#fff; overflow:hidden; padding:0 10px; margin:10px;
+  h2 { 
+    font-size:16px;  
+    color:#333;    
+    border-bottom:1px dotted #999;
+    background:#F5F5ED;
+    margin:0 -10px;
+    padding:10px;
+  }  
+  p { margin:10px 0;}
+  a { text-decoration:underline;}
+}
+
+.dialog_buttons { margin-top:10px; border-top:1px solid #ccc; text-align:right; background:#F5F5ED; margin:0 -10px; padding:10px;}
+
+.game_names { margin:10px 0 15px; background:url(<%= asset_path 'snagable_bg.gif' %>) repeat-y; overflow:hidden; list-style:none; font-size:11px; white-space:nowrap; overflow:hidden;}
+.game_name {
+  float:left; width:197px; padding:6px; font-size:11px; 
+  span { margin-right:10px; font-size:10px;}
+  img { vertical-align:top; margin:1px 3px 0 0;}
+}
+ .suggest { margin:0 0 0 4px; font-size:12px;}
+
+.no_games_msg { display:none; }
+.no_games {
+  .no_games_msg { display:block;}
+  .show_games_msg { display:none;}
+}
+
+.fetching { background:#fff url(<%= asset_path 'ajax-loader-big.gif' %>) no-repeat 50% 20px; overflow:hidden;}
+  #pop_content.fetching, #feed div.fetching { 
+    background-position:50%; min-height:100px;
+    * { opacity:0.4; filter:alpha(opacity=40); }
+    }
+.icon_img { margin:1px 5px 0 0; vertical-align: top; }
+.left { float:left;}
+.right { float:right;}
+.center { text-align:center; }
+.tellme { float:right; font-size:10px; font-weight:normal; margin-top:5px;}
+.clear { clear:both; }
