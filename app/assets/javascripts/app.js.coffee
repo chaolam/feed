@@ -3,6 +3,7 @@
 @App = Em.Application.create(
   selectedAppids: null
   authorView: 'friends'
+  dontShowLinks: new StoredArray('dontshowlinks')
   allGamesObj: Em.Object.create(
     name:'All Feed'
     isAllFeed: true
@@ -19,10 +20,9 @@
     @friendFeedView.appendTo('#feed')
     @myFeedView = App.FeedView.create(contentBinding:'App.myPostsController')
     @myFeedView.appendTo('#feed')
-    self = @
     @initialAppids = appids
-    $.when(FBMgr.fblogged_in).then(->
-      self.set('selectedAppids', appids)
+    $.when(FBMgr.fblogged_in).then(=>
+      @set('selectedAppids', appids)
       App.friendPostsController.initialLoad()
       App.myPostsController.loadPosts()
     )
@@ -35,14 +35,18 @@
   showGameSelector: ->
     @selectGameView.set('isVisible', true)
   postsController: ->
-    if @.get('authorView') == 'friends' then App.friendPostsController else App.myPostsController
+    if @get('authorView') == 'friends' then App.friendPostsController else App.myPostsController
+  removePost: (post)->
+    @get('dontShowLinks').add(post.get('postLink'))
 )
 
 App.OneClickView = Em.View.extend(
   start: ->
     posts = App.postsController().content
     App.muo = @muo = new MultiUrlOpener(posts, {
-      stepEndCB: (post)->post.set('collapsed', true)
+      stepEndCB: (post)->
+        post.set('collapsed', true)
+        App.removePost(post)
       finalCB: -> console.log('muo ended!')
     })
     @muo.start()

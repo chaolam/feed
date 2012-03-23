@@ -23,6 +23,9 @@ App.FeedView = Em.CollectionView.extend(
 
 App.PostView = Em.View.extend(
   templateName:'post'
+  removeMe:->
+    @set('isVisible', false)
+    App.removePost(@get('content'))
 )
 
 App.FriendOrMeView = Em.View.extend(
@@ -39,6 +42,7 @@ App.PostsController = Em.ArrayController.extend(
   author: 'unknown'
   lastDisplay: 0
   selectedGameBinding: 'App.filterGameController.filter'
+  dontShowLinksBinding: 'App.dontShowLinks'
   posts: []
   init: ->
     App.filterGameController.addObserver('filter', $.proxy(@gameFilterChanged, @))
@@ -51,16 +55,15 @@ App.PostsController = Em.ArrayController.extend(
   selectedGamesChanged: ->
     Em.run.sync()
     @displayPosts() if @.get('selectedGame').isAllFeed
-  hasPost: (post)->
+  showable: (post)->
     posts = @get('posts') || []
-    !posts.some((aPost)->aPost.identical(post))
+    !posts.some((aPost)->aPost.identical(post)) && !@get('dontShowLinks').contains(post.get('postLink'))
   loadPosts: ->
     console.log('PostController#loadPosts should not be called!')
   receivePosts: (posts)->
-    self = @
     posts = posts.map((rawPost)->App.Post.create(rawPost))
-    posts = posts.filter((post)-> self.hasPost(post)) 
-    rfn(posts.length)
+    posts = posts.filter((post)=> @showable(post)) 
+    console.log('rp', posts.length)
     posts = posts.concat(@posts) if @lastChecked
     posts = posts.sort((a,b)->b.created_time - a.created_time).slice(0,400)
     @set('lastChecked', posts && posts[0] && posts[0].created_time || parseInt(Date.now()/1000))
@@ -104,6 +107,8 @@ App.friendPostsController = App.PostsController.create(
   receiveStreamPosts: (r)->
     console.log('fpc no posts!', r) if (!r.posts)
     @receivePosts(r.posts)
+  removePost: (post)->
+    
 )
 
 App.myPostsController = App.PostsController.create(

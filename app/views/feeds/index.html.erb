@@ -31,7 +31,7 @@
 <script type='text/x-handlebars' data-template-name='post'>
 {{#with content}}
   <div {{bindAttr class="row collapsed"}}>
-    <div class="dont_click"><a href="javascript:void(0)">Do not collect with 1-click bonuses</a></div>
+    <div class="dont_click"><a href="javascript:void(0)" {{action "removeMe"}}>Do not collect with 1-click bonuses</a></div>
     <a href="http://www.facebook.com/profile.php?id={{unbound actor_id}}" class="fb_pic">
       <img src="http://graph.facebook.com/{{unbound actor_id}}/picture?type=square" />
     </a>

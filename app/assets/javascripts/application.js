@@ -15,7 +15,8 @@
 //= require fbmgr
 //= require ember-0.9.5
 //= require date_mod
+//= require multi_url_opener
+//= require stored_array
 //= require app
 //= require games
 //= require posts
-//= require multi_url_opener
