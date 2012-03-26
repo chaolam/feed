@@ -31,6 +31,7 @@ App.gamesController = Em.ArrayController.create(
     @appIds = appIds
     @.set('content',appIds.map((appId)->App.Game.findByAppId(appId)))
     $('#pop_content').removeClass('fetching')
+    $('#pop_content').addClass('no_games') if @appIds.length == 0
   receiveMyPosts: (posts)->
     if posts.length > 0
       @filterPosts(posts)
