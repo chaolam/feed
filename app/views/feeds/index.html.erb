@@ -116,6 +116,14 @@
     </select>
     <a onclick="FeedMgr.clickPosts(); return false" href="#" class="gu_button">Collect!</a>
   </div>
+<% if false %>
+  <div class="one_click_bonus">
+    Collection bonuses now... 
+    <a onclick="" href="#" class="gu_button yellow">Pause</a>
+    <a onclick="" href="#" class="gu_button green">Resume</a>
+    <a onclick="" href="#" class="gu_button red">Stop</a>
+  </div>
+<% end %>
 </h3>
 <div style="display:none;" id="whats_1bonuses">
   <div class="what_is">
@@ -129,7 +137,7 @@
   </div>
 </div>
 <div class="fetching"></div>
-<div class="row_wrap" id="feed"><p>Sorry, no feeds are found. Check back later.</p>
+<div class="row_wrap" id="feed"><p class="no_feed">Sorry, no feeds are found. Check back later.</p>
 </div>
 
 <script>
