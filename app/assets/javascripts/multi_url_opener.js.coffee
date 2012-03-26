@@ -36,5 +36,9 @@
   resume: ->
     @next()
     @timer = window.setInterval($.proxy(@next,@), @delay)
+  stop: ->
+    @pause()
+    @popupWindow.close()
+    @finalCB() if @finalCB
   isActive: ->
     @timer && @popupWindow && !@popupWindow.closed

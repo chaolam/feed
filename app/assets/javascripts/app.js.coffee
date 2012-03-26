@@ -41,15 +41,31 @@
 )
 
 App.OneClickView = Em.View.extend(
+  classNameBindings: ['active', 'paused']
+  active: false
+  paused: false
   start: ->
     posts = App.postsController().content
     App.muo = @muo = new MultiUrlOpener(posts, {
       stepEndCB: (post)->
         post.set('collapsed', true)
         App.removePost(post)
-      finalCB: -> console.log('muo ended!')
+      finalCB: =>
+        @set('active', false)
+        @set('paused', false)
     })
     @muo.start()
+    @set('active', true)
+  pause:->
+    @muo.pause()
+    @set('paused', true)
+  resume:->
+    @muo.resume()
+    @set('paused', false)
+  stop: ->
+    @muo.stop()
+    @set('active', false)
+    @set('paused', false)
 )
 
 App.EmptyView = Em.View.extend(

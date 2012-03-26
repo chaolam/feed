@@ -105,6 +105,8 @@
 </ul>
 </script>
 <h3 class="sub">
+  <script type="text/x-handlebars">
+  {{#view App.OneClickView }}
   <div class="tellme">(<a href="javascript:$('#whats_1bonuses').toggle(); void(0);" class="tell_me_more">What's this?</a>)</div>
   <div class="one_click_bonus">
     <div class="desc">Collect bonuses, each in</div>
@@ -118,20 +120,16 @@
       <option value="45">45 secs</option>
       <option value="60">60 secs</option>
     </select>
-<script type="text/x-handlebars">
-{{#view App.OneClickView }}
     <a {{action "start"}}  href="#" class="gu_button">Collect!</a>
-{{/view}}
-</script>
   </div>
-<% if false %>
   <div class="one_click_bonus">
     Collection bonuses now... 
-    <a onclick="" href="#" class="gu_button yellow">Pause</a>
-    <a onclick="" href="#" class="gu_button green">Resume</a>
-    <a onclick="" href="#" class="gu_button red">Stop</a>
+    <a {{action "pause"}} href="#" class="gu_button yellow">Pause</a>
+    <a {{action "resume"}} href="#" class="gu_button green">Resume</a>
+    <a {{action "stop"}} href="#" class="gu_button red">Stop</a>
   </div>
-<% end %>
+{{/view}}
+</script>
 </h3>
 <div style="display:none;" id="whats_1bonuses">
   <div class="what_is">
