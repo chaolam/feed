@@ -22,9 +22,10 @@ App.FeedView = Em.CollectionView.extend(
 )
 
 App.PostView = Em.View.extend(
+  classNameBindings: ['hidden']
   templateName:'post'
   removeMe:->
-    @set('isVisible', false)
+    @set('hidden', true)
     App.removePost(@get('content'))
 )
 
