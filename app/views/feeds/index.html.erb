@@ -108,7 +108,7 @@
   <script type="text/x-handlebars">
   {{#view App.OneClickView }}
   <div class="tellme">(<a href="javascript:$('#whats_1bonuses').toggle(); void(0);" class="tell_me_more">What's this?</a>)</div>
-  <div class="one_click_bonus">
+  <div class="one_click_bonus default">
     <div class="desc">Collect bonuses, each in</div>
     <select class="gu_time" id="gu_time">
       <option value="5">5 secs</option>
@@ -122,11 +122,12 @@
     </select>
     <a {{action "start"}}  href="#" class="gu_button">Collect!</a>
   </div>
-  <div class="one_click_bonus">
-    Collection bonuses now... 
-    <a {{action "pause"}} href="#" class="gu_button yellow">Pause</a>
-    <a {{action "resume"}} href="#" class="gu_button green">Resume</a>
-    <a {{action "stop"}} href="#" class="gu_button red">Stop</a>
+  <div class="one_click_bonus running">
+    <span class="processing">Collecting bonuses now (please do not close popup window) <%= image_tag("ajax-loader.gif") %></span>
+    <span class="halt">Paused collecting bonuses (click restart to resume) </span>
+    <a {{action "pause"}} href="#" class="gu_button yellow pause">Pause</a>
+    <a {{action "resume"}} href="#" class="gu_button green resume">Resume</a>
+    <a {{action "stop"}} href="#" class="gu_button red stop">Stop</a>
   </div>
 {{/view}}
 </script>

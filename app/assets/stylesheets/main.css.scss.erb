@@ -183,6 +183,17 @@ a.gu_button, input.gu_button, span.gu_button
 .red.gu_button, .red.gu_button:visited{ background-color: #e62727; }
 .red.gu_button:hover{ background-color: #cf2525; }
 
+.running.one_click_bonus { display:none; }
+.active {
+  .default.one_click_bonus, .resume.gu_button, span.halt { display:none; }
+  .running.one_click_bonus { display:block; }
+}
+.paused {
+  .pause.gu_button, span.processing { display:none; }
+  .resume.gu_button, span.halt { display:inline-block; }
+}
+
+span.processing img { vertical-align:middle; margin:0 10px; }
 
 fieldset { border:none; font-weight:normal; }
 label { margin:0 0 0 2px;}
