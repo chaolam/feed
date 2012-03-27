@@ -290,9 +290,8 @@ input {
     background-position:50%; min-height:100px;
     * { opacity:0.4; filter:alpha(opacity=40); }
     }
-    
-p.no_feed { display:none; }
-.has-no-posts p.no_feed { display:block; }
+.has-no-posts { font-size:12px; }
+.has-no-posts:after { content: "Sorry, no feeds are found. Check back later."}
 .icon_img { margin:1px 5px 0 0; vertical-align: top; }
 .left { float:left;}
 .right { float:right;}
