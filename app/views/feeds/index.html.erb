@@ -3,8 +3,10 @@
     <div class="generic_dialog">
       <div class="generic_dialog_popup">
         <div id="pop_content" class="pop_content">
-          <div class="close"><a href="#" {{action "close"}}>X</a></div>
-          <h2>Select the games you play to see the feed</h2>
+          <h2>
+            <div class="close"><a href="#" {{action "close"}}>X</a></div>
+            Select the games you play to see the feed
+          </h2>
           <div class="no_games_msg"><p>We cannnot detect any games on your homepage or your feed :( </p></div>
           <div class="show_games_msg">
             <p>Here are the games we think you play.</p>
@@ -45,6 +47,7 @@
       <div class="uiAttachmentTitle">
         <a target="_blank" href="{{unbound postLink}}">{{title}}</a>
       </div>
+      <p class="feed_txt">{{ attachment.caption }}</p>
       <div class="UIActionLinks">
         <img class="icon_img" src="{{unbound game_icon}}" width=16 height=16>
         <span class="uiStreamSource">
@@ -124,7 +127,7 @@
   </div>
   <div class="one_click_bonus running">
     <span class="processing">Collecting bonuses now (please do not close popup window) <%= image_tag("ajax-loader.gif") %></span>
-    <span class="halt">Paused collecting bonuses (click restart to resume) </span>
+    <span class="halt">Paused collecting bonuses (click resume to restart) </span>
     <a {{action "pause"}} href="#" class="gu_button yellow pause">Pause</a>
     <a {{action "resume"}} href="#" class="gu_button green resume">Resume</a>
     <a {{action "stop"}} href="#" class="gu_button red stop">Stop</a>
@@ -134,7 +137,7 @@
 </h3>
 <div style="display:none;" id="whats_1bonuses">
   <div class="what_is">
-    <p>Grab 10 bonuses at once with 1-Click!</p>
+    <p>Grab bonuses at once with 1-Click!</p>
       <ul class="arrow">
         <li>It'll open a pop-up window to click the bonuses so please allow popups.</li>
         <li>Please don't close the popup window until it's done; the window will close automatically at the end.</li>
