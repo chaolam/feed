@@ -92,7 +92,7 @@ App.friendPostsController = App.PostsController.create(
   doTimer: true
   initialLoad: ->
     @loadPosts()
-    @loadPosts(200)
+    @loadPosts(100)
     window.setTimeout(=>
       App.get('selectedAppids').forEach((appid)=>@loadAppPost(appid))
     ,2000)
