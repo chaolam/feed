@@ -76,8 +76,8 @@
 <script type="text/x-handlebars">
 {{#view App.FriendOrMeView}}
     <fieldset>
-      <input type="radio" checked="checked" class="radio" value="my_friends_post" name="feed_options" {{action "isFriend" on="change"}}>
-      <label>My Friends Posts</label>
+      <input type="radio" class="radio" value="my_friends_post" name="feed_options" {{action "isFriend" on="change"}} checked>
+      <label>All Posts</label>
       <input type="radio"  value="my_posts" class="radio" name="feed_options" {{action "isMe" on="change"}}>
       <label>My Posts</label>
     </fieldset>

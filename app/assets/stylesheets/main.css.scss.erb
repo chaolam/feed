@@ -15,8 +15,16 @@
   }
 body {  background:#fff; margin: 0; color:#000; font-family:"Lucida Grande",Lucida,Verdana,sans-serif;  font-size:71%; line-height:165%;}
 img { border:none; }
-h1 { font-size:20px; margin:10px 0 10px; overflow:hidden; border-bottom:1px dotted #ddd; padding-bottom:10px;}
-h3.sub { clear:both; font-size:11px; background:#F2F2F2; color:#333; padding:2px 10px; border:1px solid #ECECE3; border-width:0 0 2px 0; overflow:hidden; font-weight:normal;}
+img, object, embed {
+max-width: 90%;
+}
+h1 { font-size:140%; overflow:hidden; border-bottom:1px dotted #ddd; background:url(<%= asset_path 'icon_game_feed.gif' %>) no-repeat center left; padding:5px 0 5px 25px }
+h3.sub { 
+  .friends {
+  clear:both; font-size:90%; background:#F2F2F2; color:#333; padding:2px 10px; border:1px solid #ECECE3; border-width:0 0 2px 0; overflow:hidden; font-weight:normal;
+  }
+  .me { display:none; }
+  }
 a {
   cursor: pointer;
   color: #3B5998;
@@ -49,7 +57,7 @@ ul.tabnav {
       list-style-type: none; 
       float: left;
       display:inline;
-      font-size: 10px; 
+      font-size: 90%; 
       line-height: 17px;
       margin-right: 5px;
       color: #000;   
@@ -93,7 +101,7 @@ ul.tabnav {
   .clicked { display:block; background:url(<%= asset_path 'tick.png' %>) no-repeat top left; padding-left:20px;}
 }
 div.dont_click { 
-  float:right; text-align:left; visibility:hidden; margin:0; font-size:10px; font-family:Arial;  color:#777; 
+  float:right; text-align:left; visibility:hidden; margin:0; font-size:90%; font-family:Arial;  color:#777; 
    a { color:#aaa; background:url(<%= asset_path 'cross.png' %>)  no-repeat center left; padding-left:20px; }
    a:hover { color:#666; }
 }
@@ -106,7 +114,7 @@ div.tips_help {
   left:0px;  
   border: 1px solid #000;
   color: #FFF;
-  font-size:10px;
+  font-size:90%;
   font-weight:bold;
   background: #666;
   @include boxshadow(0, 0, 3px, #999);
@@ -129,15 +137,19 @@ div.tips_help {
 
 div.uiAttachmentTitle { font-weight:bold; }
 abbr { border:none;}
-.uiStreamSource, .UIActionLinks, .uiStreamSource a, .timestamp { color:#808080; font-size:11px; }
+.UIActionLinks { 
+  font-size:95%; 
+  a { color:#6D84B4; }
+}
+.uiStreamSource, .UIActionLinks, .uiStreamSource a, .timestamp { color:#808080;  }
 .uiStreamSource a:hover, .timestamp a:hover { text-decoration:underline;}
 .uiAttachmentTitle a:visited, .UIActionLinks a:visited { color:#999; text-decoration:line-through; }
 .uiAttachmentTitle a.snaggable:visited, .UIActionLinks a.snaggable:visited { color:#999; text-decoration:none; }
-.fb_name  { font-size:11px; margin:-4px 0 4px 0; min-height:20px; }
-.uiStreamMessage {font-size:12px; margin:0; 
+.fb_name  { font-size:100%; margin:-4px 0 4px 0; min-height:20px; }
+.uiStreamMessage {font-size:120%; margin:0; 
   .messageBody { 
     color: #000000;
-    font-size: 11px;
+    font-size:95%;
     font-weight: normal;
     margin:0 0 5px 0;
   }
@@ -149,14 +161,14 @@ abbr { border:none;}
 }
 .comment_text { margin-left:55px;}
 .row {
-  p { font-size:11px; margin:0 7px 0 0; color:gray; }
+  p { font-size:95%; margin:0 7px 0 0; color:gray; }
 }
 
 a.gu_button, input.gu_button, span.gu_button
 {
   background:#9B1212; 
   color:#FFFFFF;
-  font-size:10px;
+  font-size:90%;
   margin:5px 0;
   padding:0px 10px;
   text-align:center;
@@ -206,16 +218,16 @@ input {
   &.ex { color: #999999; font-style: oblique;}
 }
 
-.one_click_bonus { float:left; width:530px;
+.one_click_bonus { float:left;
   div { float:left; }
   select, div.desc { float:left; margin:5px 10px 0 0; }
    }
 .what_is { 
-  background:#fafafa; border:1px dotted #ccc; padding:10px; margin-bottom:10px; 
+  background:#fafafa; border:1px dotted #ccc; padding:10px; margin-bottom:10px; font-size:100%;
   ul { margin-left:15px;}
 }
 
-.options { float:right; font-size:10px; margin-left:10px;}
+.options { float:right; font-size:70%; margin-left:10px;}
 
 #overlay {
   display: block; position: absolute; top:0; left: 0pt; z-index: 1000; width: 100%; height: 3485px;  background-image: url(<%= asset_path 'overlay.png' %>); 
@@ -225,7 +237,7 @@ input {
 .generic_dialog{ 
   height:0;left:0;overflow:visible;position:absolute;top:0;width:100%;z-index:1010; padding:0;
   div.close { 
-    float:right; font-size:12px; margin:0 12px 0 0; font-weight:bold;
+    float:right; font-size:80%; margin:0 12px 0 0; font-weight:bold;
     a { color:#333; text-decoration:none; }
   }
 }
@@ -261,7 +273,7 @@ input {
 .pop_content{ 
   background:#fff; overflow:hidden; padding:0 10px; margin:10px;
   h2 { 
-    font-size:16px;  
+    font-size:140%;  
     color:#333;    
     border-bottom:1px dotted #999;
     background:#F5F5ED;
@@ -274,13 +286,13 @@ input {
 
 .dialog_buttons { margin-top:10px; border-top:1px solid #ccc; text-align:right; background:#F5F5ED; margin:0 -10px; padding:10px;}
 
-.game_names { margin:10px 0 15px; background:url(<%= asset_path 'snagable_bg.gif' %>) repeat-y; overflow:hidden; list-style:none; font-size:11px; white-space:nowrap; overflow:hidden;}
+.game_names { margin:10px 0 15px; background:url(<%= asset_path 'snagable_bg.gif' %>) repeat-y; overflow:hidden; list-style:none; white-space:nowrap; overflow:hidden;}
 .game_name {
-  float:left; width:197px; padding:6px; font-size:11px; 
-  span { margin-right:10px; font-size:10px;}
+  float:left; width:197px; padding:6px; font-size:95%; 
+  span { margin-right:10px; font-size:90%;}
   img { vertical-align:top; margin:1px 3px 0 0;}
 }
- .suggest { margin:0 0 0 4px; font-size:12px;}
+ .suggest { margin:0 0 0 4px; font-size:110%;}
  .suggested .suggest { display:none; }
 
 .no_games_msg { display:none; }
@@ -294,7 +306,7 @@ input {
     background-position:50%; min-height:100px;
     * { opacity:0.4; filter:alpha(opacity=40); }
     }
-.has-no-posts { font-size:12px; }
+.has-no-posts { font-size:110%; }
 .has-no-posts:after { content: "Sorry, no feeds are found. Check back later."; margin-left:10px; }
 
 .hidden {
@@ -317,5 +329,19 @@ input {
 .left { float:left;}
 .right { float:right;}
 .center { text-align:center; }
-.tellme { float:right; font-size:10px; font-weight:normal; margin-top:5px;}
+.tellme { float:right; font-size:90%; font-weight:normal; margin-top:5px;}
 .clear { clear:both; }
+
+/* Mobile */
+
+@media handheld, only screen and (max-width: 767px) {
+
+	body {
+	font-size: 80%;
+	-webkit-text-size-adjust: none;
+	}
+	img, object, embed {
+  max-width: 100%;
+  }
+
+}
