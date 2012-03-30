@@ -41,7 +41,8 @@
 )
 
 App.OneClickView = Em.View.extend(
-  classNameBindings: ['active', 'paused']
+  classNameBindings: ['active', 'paused','authorView']
+  authorViewBinding: 'App.authorView'
   active: false
   paused: false
   start: ->
