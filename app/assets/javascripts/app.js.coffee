@@ -1,4 +1,4 @@
-@rfn = (r)-> console.log('rfn',@zz=r)
+@rfn = (r)-> console.log('rfn',@zz=r) if (window.console)
   
 @App = Em.Application.create(
   selectedAppids: null

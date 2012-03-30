@@ -41,8 +41,8 @@ class MygamesController < ApplicationController
   # POST /mygames
   # POST /mygames.json
   def create
-    appids = params[:appids]
-    games = appids.blank? ? [] : Game.find(:all, :conditions=>"app_id in (#{appids})")
+    appids = params[:appids].split(',')
+    games = appids.collect {|appid| Game.get_by_app_id(appid.to_s)}
     fb_user.games = games
     render :nothing=>true
   end

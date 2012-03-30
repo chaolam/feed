@@ -60,11 +60,10 @@ App.PostsController = Em.ArrayController.extend(
     posts = @get('posts') || []
     !posts.some((aPost)->aPost.identical(post)) && !@get('dontShowLinks').contains(post.get('postLink'))
   loadPosts: ->
-    console.log('PostController#loadPosts should not be called!')
+    rfn('PostController#loadPosts should not be called!')
   receivePosts: (posts)->
     posts = posts.map((rawPost)->App.Post.create(rawPost))
     posts = posts.filter((post)=> @showable(post)) 
-    console.log('rp', posts.length)
     posts = posts.concat(@posts) if @lastChecked
     posts = posts.sort((a,b)->b.created_time - a.created_time).slice(0,400)
     @set('lastChecked', posts && posts[0] && posts[0].created_time || parseInt(Date.now()/1000))
