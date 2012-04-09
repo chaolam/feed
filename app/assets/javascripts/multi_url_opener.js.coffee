@@ -29,6 +29,7 @@
       @popupWindow.close()
       window.clearInterval(@timer)
       @timer = null
+      @stepEndCB(@prevObj) if (@prevObj && @stepEndCB)
       @finalCB() if @finalCB
   pause: ->
     window.clearInterval(@timer)
