@@ -46,7 +46,7 @@ App.OneClickView = Em.View.extend(
   active: false
   paused: false
   start: ->
-    posts = App.postsController().content
+    posts = App.postsController().content.filter((p)-> !p.get('collapsed'))
     App.muo = @muo = new MultiUrlOpener(posts, {
       stepEndCB: (post)->
         post.set('collapsed', true)
