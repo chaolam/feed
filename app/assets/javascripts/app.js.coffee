@@ -54,6 +54,8 @@ App.OneClickView = Em.View.extend(
       finalCB: =>
         @set('active', false)
         @set('paused', false)
+        captionStr = 'Yay I just collected ' + posts.length + ' bonuses in one click using the Game Feeds app!'
+        FB.ui({method:'feed',name:'View game feeds and collect bonuses easier', link:'http://apps.facebook.com/game-feeds', picture: 'http://images.coolchaser.com/gamecheats/giftbox.png', caption:captionStr, description:'You should try it too, you can view and collect your game bonuses so much easier!'})
     })
     @muo.start()
     @set('active', true)
@@ -67,6 +69,7 @@ App.OneClickView = Em.View.extend(
     @muo.stop()
     @set('active', false)
     @set('paused', false)
+  postCongrats: ->
 )
 
 App.EmptyView = Em.View.extend(
