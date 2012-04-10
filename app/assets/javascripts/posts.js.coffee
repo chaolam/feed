@@ -59,6 +59,8 @@ App.PostsController = Em.ArrayController.extend(
   showable: (post)->
     posts = @get('posts') || []
     !posts.some((aPost)->aPost.identical(post)) && !@get('dontShowLinks').contains(post.get('postLink'))
+  remove: (post)->
+    @posts.removeObject(post)
   loadPosts: ->
     rfn('PostController#loadPosts should not be called!')
   receivePosts: (posts)->

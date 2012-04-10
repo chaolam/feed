@@ -38,6 +38,7 @@
     if @get('authorView') == 'friends' then App.friendPostsController else App.myPostsController
   removePost: (post)->
     @get('dontShowLinks').add(post.get('postLink'))
+    @postsController().remove(post)
 )
 
 App.OneClickView = Em.View.extend(
