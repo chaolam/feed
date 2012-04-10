@@ -97,6 +97,8 @@ App.friendPostsController = App.PostsController.create(
     window.setTimeout(=>
       App.get('selectedAppids').forEach((appid)=>@loadAppPost(appid))
     ,2000)
+  showable: (post)->
+    @_super(post) && post.actor_id != FB._userID
   loadPosts: (limit=0)->
     args = {method:'stream.get',filter_key:'cg'}
     if !limit && @lastChecked
