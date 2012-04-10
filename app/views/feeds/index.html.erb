@@ -71,85 +71,90 @@
   <p>Sorry, no feeds are found. Check back later.</p>
 </script>
 
-<h1 class="clear">
-  <div class="options">
-<script type="text/x-handlebars">
-{{#view App.FriendOrMeView}}
-    <fieldset>
-      <input type="radio" class="radio" value="my_friends_post" name="feed_options" {{action "isFriend" on="change"}} checked>
-      <label>All Posts</label>
-      <input type="radio"  value="my_posts" class="radio" name="feed_options" {{action "isMe" on="change"}}>
-      <label>My Posts</label>
-    </fieldset>
-{{/view}}
-</script>
+<div class="content">
+  <div class="sidecol">
+    <h4><div class="edit">
+      <a href="#" onclick="App.showGameSelector()">edit</a></div> My Games</h4>
+    <script type="text/x-handlebars">
+    <ul class="sidenav"> 
+    {{#each App.selectedGames }}
+    {{#view App.GameFilterView contentBinding="this"}}
+    {{#with content}}
+      <a href="javascript:void(0)">
+    {{#if icon_url }}
+        <img {{bindAttr src="icon_url"}} class="icon_img" {{bindAttr alt="name"}}> {{name}}
+    {{else}}
+        {{name}}
+    {{/if}}
+      </a>
+    {{/with}}
+    {{/view}}
+    {{/each }}
+    </ul>
+    <div class="tellme">
+    </div>
+    </script>
   </div>
-  My Game Feeds
-</h1>
-<script type="text/x-handlebars">
-<div class="tellme"><%= image_tag("pencil.png", :class=>'icon_img') %>
-  <a href="#" onclick="App.showGameSelector()">Edit Games</a>
+  <div class="maincol">
+    <div class="title_widget">
+      <h1>My Game Feeds</h1>
+      <div class="options">
+        <script type="text/x-handlebars">
+        {{#view App.FriendOrMeView}}
+            <fieldset>
+              <input type="radio" class="radio" value="my_friends_post" name="feed_options" {{action "isFriend" on="change"}} checked>
+              <label>All Posts</label>
+              <input type="radio"  value="my_posts" class="radio" name="feed_options" {{action "isMe" on="change"}}>
+              <label>My Posts</label>
+            </fieldset>
+        {{/view}}
+        </script>
+      </div>
+    </div>
+    <h3 class="sub">
+      <script type="text/x-handlebars">
+      {{#view App.OneClickView }}
+      <div class="tellme">(<a href="javascript:$('#whats_1bonuses').toggle(); void(0);" class="tell_me_more">What's this?</a>)</div>
+      <div class="one_click_bonus default">
+        <div class="desc">Collect bonuses, each in</div>
+        <select class="gu_time" id="gu_time">
+          <option value="5">5 secs</option>
+          <option selected="" value="10">10 secs</option>
+          <option value="15">15 secs</option>
+          <option value="20">20 secs</option>
+          <option value="25">25 secs</option>
+          <option value="30">30 secs</option>
+          <option value="45">45 secs</option>
+          <option value="60">60 secs</option>
+        </select>
+        <a {{action "start"}}  href="#" class="gu_button">Collect!</a>
+      </div>
+      <div class="one_click_bonus running">
+        <span class="processing">Collecting bonuses now (please do not close popup window) <%= image_tag("ajax-loader.gif") %></span>
+        <span class="halt">Paused collecting bonuses (click resume to restart) </span>
+        <a {{action "pause"}} href="#" class="gu_button yellow pause">Pause</a>
+        <a {{action "resume"}} href="#" class="gu_button green resume">Resume</a>
+        <a {{action "stop"}} href="#" class="gu_button red stop">Stop</a>
+      </div>
+    {{/view}}
+    </script>
+    </h3>
+    <div style="display:none;" id="whats_1bonuses">
+      <div class="what_is">
+        <p>Grab bonuses at once with 1-Click!</p>
+          <ul class="arrow">
+            <li>It'll open a pop-up window to click the bonuses so please allow popups.</li>
+            <li>Please don't close the popup window until it's done; the window will close automatically at the end.</li>
+            <li>Some games take longer to load to get the bonuses, so adjust the time to grab each bonuses into longer seconds.</li>
+            <li>Hover over the posts and select "Don't collect this for 1-click bonuses" if you don't want to click on that bonus</li>
+          </ul>
+      </div>
+    </div>
+    <div class="fetching"></div>
+    <div class="row_wrap" id="feed">
+    </div>
+  </div>
 </div>
-<ul class="tabnav"> 
-{{#each App.selectedGames }}
-{{#view App.GameFilterView contentBinding="this"}}
-{{#with content}}
-  <a href="javascript:void(0)">
-{{#if icon_url }}
-    <img {{bindAttr src="icon_url"}} class="icon_img" {{bindAttr alt="name"}}>
-    <div class="tips_help">{{name}}</div>
-{{else}}
-    {{name}}
-{{/if}}
-  </a>
-{{/with}}
-{{/view}}
-{{/each }}
-</ul>
-</script>
-<h3 class="sub">
-  <script type="text/x-handlebars">
-  {{#view App.OneClickView }}
-  <div class="tellme">(<a href="javascript:$('#whats_1bonuses').toggle(); void(0);" class="tell_me_more">What's this?</a>)</div>
-  <div class="one_click_bonus default">
-    <div class="desc">Collect bonuses, each in</div>
-    <select class="gu_time" id="gu_time">
-      <option value="5">5 secs</option>
-      <option selected="" value="10">10 secs</option>
-      <option value="15">15 secs</option>
-      <option value="20">20 secs</option>
-      <option value="25">25 secs</option>
-      <option value="30">30 secs</option>
-      <option value="45">45 secs</option>
-      <option value="60">60 secs</option>
-    </select>
-    <a {{action "start"}}  href="#" class="gu_button">Collect!</a>
-  </div>
-  <div class="one_click_bonus running">
-    <span class="processing">Collecting bonuses now (please do not close popup window) <%= image_tag("ajax-loader.gif") %></span>
-    <span class="halt">Paused collecting bonuses (click resume to restart) </span>
-    <a {{action "pause"}} href="#" class="gu_button yellow pause">Pause</a>
-    <a {{action "resume"}} href="#" class="gu_button green resume">Resume</a>
-    <a {{action "stop"}} href="#" class="gu_button red stop">Stop</a>
-  </div>
-{{/view}}
-</script>
-</h3>
-<div style="display:none;" id="whats_1bonuses">
-  <div class="what_is">
-    <p>Grab bonuses at once with 1-Click!</p>
-      <ul class="arrow">
-        <li>It'll open a pop-up window to click the bonuses so please allow popups.</li>
-        <li>Please don't close the popup window until it's done; the window will close automatically at the end.</li>
-        <li>Some games take longer to load to get the bonuses, so adjust the time to grab each bonuses into longer seconds.</li>
-        <li>Hover over the posts and select "Don't collect this for 1-click bonuses" if you don't want to click on that bonus</li>
-      </ul>
-  </div>
-</div>
-<div class="fetching"></div>
-<div class="row_wrap" id="feed">
-</div>
-
 <script>
 App.appInit(<%= raw @games %>);
 </script>
