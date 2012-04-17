@@ -38,7 +38,7 @@ h3.sub {
 
 h4 {
  color:#999;
- font-size:10px;
+ font-size:90%;
  text-transform:uppercase;
  margin:15px 0;
  
@@ -66,7 +66,6 @@ a {
 .maincol {
   border-left: 1px solid #CCCCCC;
   margin-left: 184px;
-  xoverflow:hidden;
   min-height:800px;
 }
 
@@ -235,7 +234,7 @@ a.gu_button, input.gu_button, span.gu_button
   padding:0px 10px;
   text-align:center;
   @include rounded(10px);
-  text-decoration:none;
+  text-decoration:none !important;
   border:none;
   cursor:pointer;
   display: inline-block;
@@ -394,6 +393,8 @@ input {
 
 /* Mobile */
 
+.for_mobile { display:none; }
+
 @media handheld, only screen and (max-width: 767px) {
 
 	body {
@@ -403,5 +404,38 @@ input {
 	img, object, embed {
   max-width: 100%;
   }
+  
+  .maincol {
+    border-left: none;
+    margin-left: 0;
+    float:left;
+    width:100%;
+  }
+
+  .sidecol {
+    float: left;
+    width: 99%;
+    background:#fafafa;
+    
+    h4, form, select, h4 div.edit { display:inline; margin:10px 10px 10px 0;}
+  }
+  .generic_dialog_popup {
+    width:468px;
+    margin-left:-234px;
+  }
+  .for_mobile { display:block; }
+  .for_pc { display:none; }
+  .options { margin:10px 0; }
+  #overlay { background:#fff; }
+  .generic_dialog_popup { 
+    width:100%; top:0; left:0; margin:0; border:none; background:#fff;      
+    padding:0px;-webkit-box-shadow: none; -moz-box-shadow:none; box-shadow: none; position:absolute;
+   }
+  .game_names { background:none; }
+  .game_name { float:none; width:auto; }
+  .pop_content h2, .dialog_buttons { margin:0; }
+  .pop_content { padding:0; }
+  h3.sub { margin:0; }
+  .one_click_bonus div.desc { margin-right:2px;}
 
 }

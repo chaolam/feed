@@ -3,8 +3,9 @@
     <div class="generic_dialog">
       <div class="generic_dialog_popup">
         <div id="pop_content" class="pop_content">
+          <div class="for_mobile"><a href="#" class="gu_button" {{action "close"}}>Back</a></div>
           <h2>
-            <div class="close"><a href="#" {{action "close"}}>X</a></div>
+            <div class="close for_pc"><a href="#" {{action "close"}}>X</a></div>
             Select the games you play to see the feed
           </h2>
           <div class="no_games_msg"><p>We cannnot detect any games on your homepage or your feed :( </p></div>
@@ -72,32 +73,47 @@
 </script>
 
 <div class="content">
+  <h1 class="for_mobile">My Game Feeds</h1>
+  
   <div class="sidecol">
-    <h4><div class="edit">
-      <a href="#" onclick="App.showGameSelector()">edit</a></div> My Games</h4>
-    <script type="text/x-handlebars">
-    <ul class="sidenav"> 
-    {{#each App.selectedGames }}
-    {{#view App.GameFilterView contentBinding="this"}}
-    {{#with content}}
-      <a href="javascript:void(0)">
-    {{#if icon_url }}
-        <img {{bindAttr src="icon_url"}} class="icon_img" {{bindAttr alt="name"}}> {{name}}
-    {{else}}
-        {{name}}
-    {{/if}}
-      </a>
-    {{/with}}
-    {{/view}}
-    {{/each }}
-    </ul>
-    <div class="tellme">
+    <div class="for_pc">
+      <h4><div class="edit"><a href="#" onclick="App.showGameSelector()">edit</a></div> My Games</h4>
+      <script type="text/x-handlebars">
+      <ul class="sidenav"> 
+      {{#each App.selectedGames }}
+      {{#view App.GameFilterView contentBinding="this"}}
+      {{#with content}}
+        <a href="javascript:void(0)">
+      {{#if icon_url }}
+          <img {{bindAttr src="icon_url"}} class="icon_img" {{bindAttr alt="name"}}> {{name}}
+      {{else}}
+          {{name}}
+      {{/if}}
+        </a>
+      {{/with}}
+      {{/view}}
+      {{/each }}
+      </ul>
+      <div class="tellme">
+      </div>
+      </script>
     </div>
-    </script>
+    <div class="for_mobile">
+      <h4><div class="edit"><a href="#" onclick="App.showGameSelector()">edit</a></div> My Games</h4>
+      <form action="../">
+      <select>
+          <option>Farmville</option>
+          <option>CastleVille</option>
+          <option>Pioneer Trail</option>
+          <option>Sims Social</option>
+          <option>Monster World</option>
+      </select>
+      </form>
+    </div>
   </div>
   <div class="maincol">
     <div class="title_widget">
-      <h1>My Game Feeds</h1>
+      <h1 class="for_pc">My Game Feeds</h1>
       <div class="options">
         <script type="text/x-handlebars">
         {{#view App.FriendOrMeView}}
@@ -114,7 +130,7 @@
     <h3 class="sub">
       <script type="text/x-handlebars">
       {{#view App.OneClickView }}
-      <div class="tellme">(<a href="javascript:$('#whats_1bonuses').toggle(); void(0);" class="tell_me_more">What's this?</a>)</div>
+      <div class="tellme for_pc">(<a href="javascript:$('#whats_1bonuses').toggle(); void(0);" class="tell_me_more">What's this?</a>)</div>
       <div class="one_click_bonus default">
         <div class="desc">Collect bonuses, each in</div>
         <select class="gu_time" id="gu_time">
