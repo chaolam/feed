@@ -38,7 +38,7 @@
       <img src="http://graph.facebook.com/{{unbound actor_id}}/picture?type=square" />
     </a>
     <div class = "mainWrapper">
-      <h6 class="fb_name"><fb:name uid="{{unbound actor_id}}" useyou="false"></fb:name></h6>
+      <h6 class="fb_name"><a href="#" {{action "viewActor"}}><fb:name uid="{{unbound actor_id}}" useyou="false" linked="false"></fb:name></a></h6>
       <div class="avatar"><img src="{{unbound picSrc}}" /></div>
       <div class="comment_text">
 {{#if message }}
