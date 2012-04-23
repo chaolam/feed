@@ -90,6 +90,12 @@ App.PostsController = Em.ArrayController.extend(
       @lastDisplayTimer = null
     @set('content', appPosts)
     @set('hasPosts', appPosts.length > 0)
+  setTimer: (state)->
+    if @timer && !state
+      window.clearInterval(@timer)
+      @set('timer',null)
+    else if !@timer && state
+      @set('timer', window.setInterval((=>@loadPosts()), 60000))
 )
 
 App.friendPostsController = App.PostsController.create(

@@ -76,3 +76,17 @@ App.OneClickView = Em.View.extend(
 App.EmptyView = Em.View.extend(
   templateName: 'no-posts'
 )
+
+App.AutoRefreshView = Em.View.extend(
+  classNameBindings: ['isOn:on']
+  isOn: true
+  turnOff: ->
+    @set('isOn', false)
+    App.friendPostsController.setTimer(false)
+    false
+  turnOn: ->
+    @set('isOn', true)
+    App.friendPostsController.loadPosts()
+    App.friendPostsController.setTimer(true)
+    false
+)

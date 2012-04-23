@@ -126,10 +126,12 @@
         {{/view}}
         </script>
       </div>
-      <div id="refresh" class="on">
-        <div class="on_msg">Too heavy? <a href="#">Stop Auto-Refresh</a></div>
-        <div class="off_msg"><a href="#">Resume Auto-Refresh</a></div>
-      </div>
+      <script type="text/x-handlebars">
+      {{#view App.AutoRefreshView id="refresh"}}
+        <div class="on_msg">Too heavy? <a href="#" {{action "turnOff"}}>Stop Auto-Refresh</a></div>
+        <div class="off_msg"><a href="#" {{action "turnOn"}}>Resume Auto-Refresh</a></div>
+      {{/view}}
+      </script>
     </div>
     <h3 class="sub">
       <script type="text/x-handlebars">
