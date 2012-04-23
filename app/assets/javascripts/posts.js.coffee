@@ -27,6 +27,10 @@ App.PostView = Em.View.extend(
   removeMe:->
     @set('hidden', true)
     App.removePost(@get('content'))
+  viewActor:->
+    actor_id = @get('content').actor_id
+    _gaq.push(['_trackEvent', 'view', 'profile', actor_id])
+    window.open("http://www.facebook.com/profile.php?id="+actor_id)
 )
 
 App.FriendOrMeView = Em.View.extend(
