@@ -1,4 +1,5 @@
 class MiscController < ApplicationController
+  
   def fb_channel
     response.headers['Pragma'] = 'public'
     expires_in 1.year, :public=>true

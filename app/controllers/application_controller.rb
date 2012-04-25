@@ -6,16 +6,21 @@ protected
     return @user if @user
     oauth = koala_oauth
     user_info = oauth.get_user_info_from_cookies(cookies)
+    user_id = nil
     if user_info
       @fb_token = user_info['access_token']
-      @user = User.find_or_create_by_facebook_uid(user_info['user_id'])
+      user_id = user_info['user_id']
+    elsif params[:signed_request]
+      user_info = oauth.parse_signed_request params[:signed_request]
+      @fb_token = user_info['oauth_token']
+      user_id = user_info['user_id']
     elsif params[:code]
       @fb_token = oauth.get_access_token(params[:code])
       graph = Koala::Facebook::GraphAPI.new(@fb_token)
       user_info = graph.api('/me')
       @user = User.find_or_create_by_facebook_uid(user_info['id'])
     end
-    @user
+    @user = User.find_or_create_by_facebook_uid(user_id) if user_id
   rescue Exception=>e
     raise e
     @user = @fb_token = nil
