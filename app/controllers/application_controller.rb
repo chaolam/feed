@@ -23,11 +23,17 @@ protected
 
   def require_fb_user
     unless fb_user
-      redirect_to koala_oauth.url_for_oauth_code(:permissions=>'read_stream')
+      redirect_to_oauth
     end
   end
 
   def koala_oauth
-    Koala::Facebook::OAuth.new(FBConf.app_id, FBConf.secret_key, root_url)
+    redirect_url = url_for(:controller=>'misc', :action=>'canvas')
+    Koala::Facebook::OAuth.new(FBConf.app_id, FBConf.secret_key, redirect_url)
+  end
+  
+  def redirect_to_oauth
+    @oauth_url = koala_oauth.url_for_oauth_code(:permissions=>'read_stream')
+    render :layout=>'oauth'
   end
 end

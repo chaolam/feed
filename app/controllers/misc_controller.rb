@@ -5,4 +5,8 @@ class MiscController < ApplicationController
     response.headers["Expires"] = CGI.rfc1123_date(Time.now + 1.year)
     render :text=>'<script src="//connect.facebook.net/en_US/all.js"></script>' + "\n"
   end
+  
+  def canvas
+    redirect_to "http://apps.facebook.com/#{FBConf.canvas_name}"
+  end
 end

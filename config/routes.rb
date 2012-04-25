@@ -11,6 +11,7 @@ Feed::Application.routes.draw do
   end
   
   match '/fb_channel', :controller=>'misc', :action=>'fb_channel'
+  match '/bookmark', :controller=>'misc', :action=>'canvas'
   match '/message/:action', :controller=>'misc'
   # The priority is based upon order of creation:
   # first created -> highest priority.
