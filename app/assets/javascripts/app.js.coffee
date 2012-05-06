@@ -47,8 +47,9 @@ App.OneClickView = Em.View.extend(
   active: false
   paused: false
   start: ->
-    posts = App.postsController().content.filter((p)-> !p.get('collapsed'))
+    posts = App.postsController().content.filter((p)-> !p.get('collapsed') && !p.get('removed'))
     App.muo = @muo = new MultiUrlOpener(posts, {
+      delay: $('#gu_time')[0].value*1000,
       stepEndCB: (post)->
         post.set('collapsed', true)
         App.removePost(post)

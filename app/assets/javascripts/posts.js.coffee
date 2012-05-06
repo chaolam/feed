@@ -64,7 +64,8 @@ App.PostsController = Em.ArrayController.extend(
     posts = @get('posts') || []
     !posts.some((aPost)->aPost.identical(post)) && !@get('dontShowLinks').contains(post.get('postLink'))
   remove: (post)->
-    @posts.removeObject(post)
+    @get('posts').removeObject(post)
+    post.set('removed', true)
   loadPosts: ->
     rfn('PostController#loadPosts should not be called!')
   receivePosts: (posts)->
@@ -119,8 +120,8 @@ App.friendPostsController = App.PostsController.create(
   loadAppPost: (appid)->
     FB.api({method:'stream.get',filter_key:'app_'+appid}, $.proxy(@receiveStreamPosts, @))
   receiveStreamPosts: (r)->
-    console.log('fpc no posts!', r) if (!r.posts)
     @receivePosts(r.posts)
+    console.log('fpc no posts!', r) if (!r.posts)
   removePost: (post)->
     
 )
