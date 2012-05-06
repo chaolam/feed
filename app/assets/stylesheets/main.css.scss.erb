@@ -308,8 +308,8 @@ input {
 
 /* using css rather than js to position the box in the center of the window */
 .generic_dialog_popup {
-  position:fixed;
-  top:300px;
+  position:absolute;
+  top:200px;
   left:48%;
   margin-left:-334px; 
   margin-top:-100px;
@@ -323,16 +323,6 @@ input {
   @include rounded(8px);
   } 
 
-  * html .generic_dialog_popup
-   {
-     position: absolute; 
-     margin-top:120px;
-     top:expression(eval(document.compatMode &&
-     document.compatMode=='CSS1Compat') ?
-     documentElement.scrollTop+((documentElement.clientHeight-this.clientHeight)/2 - 155)
-     : document.body.scrollTop
-     +((document.body.clientHeight-this.clientHeight)/2 -155));
-   }  
 
 .pop_content{ 
   background:#fff; overflow:hidden; padding:0 10px; margin:10px;
