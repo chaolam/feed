@@ -30,6 +30,7 @@
     </div>
 </script>
 
+<% if true %>
 <script type='text/x-handlebars' data-template-name='post'>
 {{#with content}}
   <div {{bindAttr class="row collapsed"}}>
@@ -66,6 +67,56 @@
   </div>
 {{/with}}
 </script>
+<% else %>
+<script type='text/x-handlebars' data-template-name='post'>
+{{#with content}}
+  <div {{bindAttr class="row collapsed"}}>
+    <div class="dont_click"><a href="javascript:void(0)" {{action "removeMe"}}>Do not collect with 1-click bonuses</a></div>
+    <a href="http://www.facebook.com/profile.php?id={{unbound actor_id}}" class="fb_pic">
+      <img src="http://graph.facebook.com/{{unbound actor_id}}/picture?type=square" />
+    </a>
+    <div class = "mainWrapper">
+      <h6 class="fb_name"><a href="#" {{action "viewActor"}}><fb:name uid="{{unbound actor_id}}" useyou="false" linked="false"></fb:name></a></h6>
+      <div class="avatar"><img src="{{unbound picSrc}}" /></div>
+      <div class="comment_text">
+{{#if message }}
+        <h6 class="uiStreamMessage"><span class="messageBody">{{ message }}</span></h6>
+{{/if}}
+        <div class="uiAttachmentTitle">
+          <a target="_blank" href="{{unbound postLink}}">{{title}}</a>
+        </div>
+        <p class="feed_txt">{{ attachment.caption }}</p>
+        <img class="icon_img left" src="{{unbound game_icon}}" width=16 height=16>
+        <div class="like_this yes">
+          
+          <span class="like"><a href="#" class="l_txt">Like</a></span>
+          <span class="unlike"><a href="#" class="l_txt">Unlike</a></span>
+          
+        </div>
+        
+        <table cellspacing="0" cellpadding="0" class="l_bbl left"><tbody><tr>
+          <td><div class="button_nub"><s></s><i></i></div></td>
+          <td><div class="button_count">3</div></td></tr></tbody>
+        </table> 
+        <div class="itm">&middot;
+          <abbr class="timestamp uiStreamSource"><a target="_blank" href="{{unbound permalink}}">{{ relative_time }}</a></abbr>
+{{#if actionText }}
+          <span class="UIActionLinks"> · <a target="_blank" href="{{unbound postLink}}">{{actionText}}</a></span>
+{{/if}}
+        </div>
+      </div>
+    </div>
+    <div class="clicked">
+      <div class="uiAttachmentTitle">
+        <a target="_blank" href="{{unbound permalink}}">{{title}}</a>
+      </div>
+    </div>
+  </div>
+{{/with}}
+</script>
+
+<% end %>
+
 
 <script type='text/x-handlebars' data-template-name='no-posts'>
   <p>Sorry, no feeds are found. Check back later.</p>
@@ -149,8 +200,10 @@
           <option value="45">45 secs</option>
           <option value="60">60 secs</option>
         </select>
+        <% if false %><div style="margin:5px 5px 0 0"><input type="checkbox"> Leave comment on items claimed</div><% end %>
         <a {{action "start"}}  href="#" class="gu_button">Collect!</a>
       </div>
+      
       <div class="one_click_bonus running">
         <span class="processing">Collecting bonuses now (please do not close popup window) <%= image_tag("ajax-loader.gif") %></span>
         <span class="halt">Paused collecting bonuses (click resume to restart) </span>
@@ -158,6 +211,7 @@
         <a {{action "resume"}} href="#" class="gu_button green resume">Resume</a>
         <a {{action "stop"}} href="#" class="gu_button red stop">Stop</a>
       </div>
+      
     {{/view}}
     </script>
     </h3>

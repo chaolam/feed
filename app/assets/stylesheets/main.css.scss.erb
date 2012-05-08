@@ -203,11 +203,12 @@ div.tips_help {
 
 div.uiAttachmentTitle { font-weight:bold; }
 abbr { border:none;}
+
+.uiStreamSource, .UIActionLinks, .uiStreamSource a, .timestamp { color:#808080;  }
 .UIActionLinks { 
   font-size:95%; 
   a { color:#6D84B4; }
 }
-.uiStreamSource, .UIActionLinks, .uiStreamSource a, .timestamp { color:#808080;  }
 .uiStreamSource a:hover, .timestamp a:hover { text-decoration:underline;}
 .uiAttachmentTitle a:visited, .UIActionLinks a:visited { color:#999; text-decoration:line-through; }
 .uiAttachmentTitle a.snaggable:visited, .UIActionLinks a.snaggable:visited { color:#999; text-decoration:none; }
@@ -220,6 +221,53 @@ abbr { border:none;}
     margin:0 0 5px 0;
   }
 }
+.like_this { 
+  font-size:95%; 
+  float:left;
+  a { color:#6D84B4; }
+}
+.yes .like, .no .unlike { display:block; }
+.yes .unlike, .no .like { display:none; }
+
+
+.l_bbl { margin-top:2px; background:none !important; }
+.l_txt { background:url(like.gif) no-repeat top left; padding-left:18px; }
+.button_count {
+    background: none repeat scroll 0 0 #E8EBF2;
+    border: 1px solid #B0B9EC;
+    float: left;display:inline;
+    font-weight: normal;
+    height: 12px;
+    line-height: 13px;
+    margin-left: 1px;
+    min-width: 15px;
+    text-align: center;
+    font-size:10px;
+    color:#808080;
+}
+.button_nub {
+    float: left;
+    height: 0;
+    left: 2px;
+    position: relative;
+    top: -5px;
+    width: 5px;
+    z-index: 2;
+}
+.button_nub s, .button_nub i {
+    border-color: transparent #C7C7C7 transparent transparent;
+    border-style: solid;
+    border-width: 5px 5px 0 0;
+    display: block;
+    position: relative;
+}
+.button_nub i {
+    border-right-color: #EFEFEF;
+    left: 2px;
+    top: -6px;
+}
+
+.itm { float:left; margin-left:3px;}
 
 .avatar { 
   float:left; margin:0px 10px 0 0; 
