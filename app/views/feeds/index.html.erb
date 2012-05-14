@@ -87,10 +87,10 @@
         </div>
         <p class="feed_txt">{{ attachment.caption }}</p>
         <img class="icon_img left" src="{{unbound game_icon}}" width=16 height=16>
-        <div class="like_this">
+        <div {{bindAttr class="like_this:like_this liked"}}>
           
           <span class="like"><a href="#" {{action "likeMe"}} class="l_txt">Like</a></span>
-          <span class="unlike"><a href="#" class="l_txt">Unlike</a></span>
+          <span class="unlike">Liked</span>
           
         </div>
         

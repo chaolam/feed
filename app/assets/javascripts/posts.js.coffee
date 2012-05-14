@@ -137,6 +137,7 @@ App.myPostsController = App.PostsController.create(
 App.Post = Ember.Object.extend(
   row: true
   collapsed: false
+  like_this: true
   title: Ember.computed(-> @attachment.name || @attachment.caption)
   picSrc: Ember.computed(->
     @attachment.media[0] && @attachment.media[0].src ||
@@ -159,6 +160,7 @@ App.Post = Ember.Object.extend(
       FB.api('/'+self.post_id+'/likes','post', (r)->
         if (r == true)
           self.set('like_count', parseInt(self.get('like_count'),10)+1)
+          self.set('liked', true)
         else if r.error && r.error.code == 200
           App.noMorePermission('publish_actions')
           alert('oops, lost permission to like post')
