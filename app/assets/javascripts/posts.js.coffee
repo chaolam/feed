@@ -27,6 +27,8 @@ App.PostView = Em.View.extend(
   removeMe:->
     @set('hidden', true)
     App.removePost(@get('content'))
+  likeMe: ->
+    @get('content').like()
   viewActor:->
     actor_id = @get('content').actor_id
     _gaq.push(['_trackEvent', 'view', 'profile', actor_id])
@@ -144,9 +146,23 @@ App.Post = Ember.Object.extend(
   postLink: Ember.computed(-> @attachment && @attachment.href || @action_links && @action_links[0].href)
   game_icon: Ember.computed(-> App.Game.findByAppId(@app_id).get('icon_url'))
   relative_time: Em.computed(-> new Date(@created_time*1000).toRelativeTime())
+  init: ->
+    @_super()
+    @set('like_count', @likes && @likes.count || 0)
   identical: (post)->
     @get('postLink') == post.get('postLink')
   getUrl: ->
     @.get('postLink')
+  like: ->
+    self = @
+    App.withPermissionDo('publish_actions', ->
+      FB.api('/'+self.post_id+'/likes','post', (r)->
+        if (r == true)
+          self.set('like_count', parseInt(self.get('like_count'),10)+1)
+        else if r.error && r.error.code == 200
+          App.noMorePermission('publish_actions')
+          alert('oops, lost permission to like post')
+      )
+    )
 )
   

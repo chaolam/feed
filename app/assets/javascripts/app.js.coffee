@@ -25,6 +25,7 @@
       @set('selectedAppids', appids)
       App.friendPostsController.initialLoad()
       App.myPostsController.loadPosts()
+      App.requestPermissions()
     )
   appidsStr: ->
     @selectedAppids.join(',')
@@ -39,6 +40,23 @@
   removePost: (post)->
     @get('dontShowLinks').add(post.get('postLink'))
     @postsController().remove(post)
+  requestPermissions: (action)->
+    FB.api('/me/permissions', (r)->
+      if r.data && r.data[0]
+        action() if action
+        App.permissions = r.data[0]
+    )
+  hasPermission: (perm)->
+    @permissions[perm]
+  noMorePermission: (perm)->
+    @permissions[perm] = 0
+  withPermissionDo: (perm,action)->
+    if @hasPermission(perm)
+      action()
+    else
+      FB.login(->
+        App.requestPermissions(action)
+      , {scope:perm})
 )
 
 App.OneClickView = Em.View.extend(

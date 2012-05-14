@@ -30,7 +30,7 @@
     </div>
 </script>
 
-<% if true %>
+<% if false %>
 <script type='text/x-handlebars' data-template-name='post'>
 {{#with content}}
   <div {{bindAttr class="row collapsed"}}>
@@ -89,14 +89,14 @@
         <img class="icon_img left" src="{{unbound game_icon}}" width=16 height=16>
         <div class="like_this">
           
-          <span class="like"><a href="#" class="l_txt">Like</a></span>
+          <span class="like"><a href="#" {{action "likeMe"}} class="l_txt">Like</a></span>
           <span class="unlike"><a href="#" class="l_txt">Unlike</a></span>
           
         </div>
         
         <table cellspacing="0" cellpadding="0" class="l_bbl left"><tbody><tr>
           <td><div class="button_nub"><s></s><i></i></div></td>
-          <td><div class="button_count">3</div></td></tr></tbody>
+          <td><div class="button_count">{{ like_count }}</div></td></tr></tbody>
         </table> 
         <div class="itm">&middot;
           <abbr class="timestamp uiStreamSource"><a target="_blank" href="{{unbound permalink}}">{{ relative_time }}</a></abbr>
