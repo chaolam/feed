@@ -147,6 +147,7 @@ App.Post = Ember.Object.extend(
   postLink: Ember.computed(-> @attachment && @attachment.href || @action_links && @action_links[0].href)
   game_icon: Ember.computed(-> App.Game.findByAppId(@app_id).get('icon_url'))
   relative_time: Em.computed(-> new Date(@created_time*1000).toRelativeTime())
+  no_likes: Ember.computed(-> @get('like_count')=='0').property('like_count')
   init: ->
     @_super()
     @set('like_count', @likes && @likes.count || 0)
@@ -159,7 +160,7 @@ App.Post = Ember.Object.extend(
     App.withPermissionDo('publish_actions', ->
       FB.api('/'+self.post_id+'/likes','post', (r)->
         if (r == true)
-          self.set('like_count', parseInt(self.get('like_count'),10)+1)
+          self.set('like_count', (parseInt(self.get('like_count'),10)+1)+'')
           self.set('liked', true)
         else if r.error && r.error.code == 200
           App.noMorePermission('publish_actions')

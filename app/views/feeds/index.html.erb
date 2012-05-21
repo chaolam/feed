@@ -93,11 +93,12 @@
           <span class="unlike">Liked</span>
           
         </div>
-        
-        <table cellspacing="0" cellpadding="0" class="l_bbl left"><tbody><tr>
-          <td><div class="button_nub"><s></s><i></i></div></td>
-          <td><div class="button_count">{{ like_count }}</div></td></tr></tbody>
-        </table> 
+        <div {{bindAttr class="no_likes"}}>
+          <table cellspacing="0" cellpadding="0" class="l_bbl left"><tbody><tr>
+            <td><div class="button_nub"><s></s><i></i></div></td>
+            <td><div class="button_count">{{ like_count }}</div></td></tr></tbody>
+          </table> 
+        </div>
         <div class="itm">&middot;
           <abbr class="timestamp uiStreamSource"><a target="_blank" href="{{unbound permalink}}">{{ relative_time }}</a></abbr>
 {{#if actionText }}
