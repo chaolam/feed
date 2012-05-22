@@ -131,7 +131,7 @@ App.friendPostsController = App.PostsController.create(
 App.myPostsController = App.PostsController.create(
   author: 'me'
   loadPosts: ->
-    FB.api({method:'fql.query',query:'select actor_id, created_time, app_id, attachment, action_links from stream where source_id=me() and actor_id=me() and type in (237, 272)'}, $.proxy(@receivePosts,@))
+    FB.api({method:'fql.query',query:'select post_id, actor_id, created_time, app_id, attachment, action_links, likes from stream where source_id=me() and actor_id=me() and type in (237, 272)'}, $.proxy(@receivePosts,@))
 )
     
 App.Post = Ember.Object.extend(
@@ -150,7 +150,7 @@ App.Post = Ember.Object.extend(
   no_likes: Ember.computed(-> @get('like_count')=='0').property('like_count')
   init: ->
     @_super()
-    @set('like_count', @likes && @likes.count || 0)
+    @set('like_count', @likes && @likes.count || '0')
   identical: (post)->
     @get('postLink') == post.get('postLink')
   getUrl: ->
