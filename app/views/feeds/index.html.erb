@@ -30,44 +30,7 @@
     </div>
 </script>
 
-<% if false %>
-<script type='text/x-handlebars' data-template-name='post'>
-{{#with content}}
-  <div {{bindAttr class="row collapsed"}}>
-    <div class="dont_click"><a href="javascript:void(0)" {{action "removeMe"}}>Do not collect with 1-click bonuses</a></div>
-    <a href="http://www.facebook.com/profile.php?id={{unbound actor_id}}" class="fb_pic">
-      <img src="http://graph.facebook.com/{{unbound actor_id}}/picture?type=square" />
-    </a>
-    <div class = "mainWrapper">
-      <h6 class="fb_name"><a href="#" {{action "viewActor"}}><fb:name uid="{{unbound actor_id}}" useyou="false" linked="false"></fb:name></a></h6>
-      <div class="avatar"><img src="{{unbound picSrc}}" /></div>
-      <div class="comment_text">
-{{#if message }}
-        <h6 class="uiStreamMessage"><span class="messageBody">{{ message }}</span></h6>
-{{/if}}
-      <div class="uiAttachmentTitle">
-        <a target="_blank" href="{{unbound postLink}}">{{title}}</a>
-      </div>
-      <p class="feed_txt">{{ attachment.caption }}</p>
-      <div class="UIActionLinks">
-        <img class="icon_img" src="{{unbound game_icon}}" width=16 height=16>
-        <span class="uiStreamSource">
-          <abbr class="timestamp"><a target="_blank" href="{{unbound permalink}}">{{ relative_time }}</a></abbr>
-        </span>
-{{#if actionText }}
-        <span class="UIActionLinks"> · <a target="_blank" href="{{unbound postLink}}">{{actionText}}</a></span>
-{{/if}}
-      </div>
-    </div>
-  </div>
-  <div class="clicked">
-    <div class="uiAttachmentTitle">
-      <a target="_blank" href="{{unbound permalink}}">{{title}}</a>
-    </div>
-  </div>
-{{/with}}
-</script>
-<% else %>
+
 <script type='text/x-handlebars' data-template-name='post'>
 {{#with content}}
   <div {{bindAttr class="row collapsed"}}>
@@ -116,9 +79,6 @@
   </div>
 {{/with}}
 </script>
-
-<% end %>
-
 
 <script type='text/x-handlebars' data-template-name='no-posts'>
   <p>Sorry, no feeds are found. Check back later.</p>
