@@ -144,6 +144,9 @@
         <div class="off_msg"><a href="#" {{action "turnOn"}}>Resume Auto-Refresh</a></div>
       {{/view}}
       </script>
+<% if false %>
+       <div class="prefs"><a href="#">Preferences</a></div>
+<% end %>
     </div>
     <h3 class="sub">
       <script type="text/x-handlebars">
@@ -195,3 +198,31 @@
 <script>
 App.appInit(<%= raw @games %>);
 </script>
+
+
+<div style="display:none;">
+<div id="overlay"></div>
+<div class="generic_dialog">
+  <div class="generic_dialog_popup sm_box">
+    <div id="pop_content" class="pop_content">
+      <div class="for_mobile"><a href="#" class="gu_button" {{action "close"}}>Back</a></div>
+      <h2>
+        <div class="close for_pc"><a href="#">X</a></div>
+        Preferences
+      </h2>
+      <div class="pref_box">
+        <div class="auto_comment">
+          <input type="checkbox" checked="checked" /> 
+          <label>Automatically leave comments when you 'like' posts?</label>
+          <textarea>Thanks! :) via Game Feeds http://apps.facebook.com/game_feeds</textarea>
+        </div>
+        <div class="auto_refresh">
+          <input type="checkbox" checked="checked" /> 
+          <label>Auto-Refresh the feeds every minute</label>
+        </div>
+        <input type="submit" class="gu_button btn" value="Save" />
+      </div>
+    </div>
+  </div>
+</div>
+</div>

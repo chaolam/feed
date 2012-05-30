@@ -311,6 +311,8 @@ a.gu_button, input.gu_button, span.gu_button
 .yellow.gu_button:hover{ background-color: #fc9200; }
 .red.gu_button, .red.gu_button:visited{ background-color: #e62727; }
 .red.gu_button:hover{ background-color: #cf2525; }
+.gray.gu_button, .gray.gu_button:visited{ background-color: #999999; }
+.gray.gu_button:hover{ background-color: #cccccc; }
 
 .running.one_click_bonus { display:none; }
 .active {
@@ -371,6 +373,7 @@ input {
   @include rounded(8px);
   } 
 
+  .sm_box { width:468px; margin-left:-234px; }
 
 .pop_content{ 
   background:#fff; overflow:hidden; padding:0 10px; margin:10px;
@@ -434,6 +437,17 @@ input {
 .tellme { float:right; font-weight:normal; margin-top:5px;}
 .clear { clear:both; }
 
+form,  textarea {
+ font: 12px/16px "Lucida Grande", Arial, Verdana, sans-serif; 
+}  
+label { font-weight:bold; margin:10px 0 0 0; }
+div.pref_box { margin:20px 10px; overflow:hidden;  }
+div.pref_box textarea { width:376px; height:17px; font-size:11px; margin:3px 0 5px 16px; padding:3px; }
+div.pref_box label { margin:10px 0 0; } 
+div.pref_box input.btn { padding:5px; margin-right:5px; float:right; }
+.pop_content .note { font-size:10px; color:#888; margin:0; }
+.auto_comment { margin-bottom:10px;}
+
 /* Mobile */
 
 .for_mobile { display:none; }
@@ -480,5 +494,4 @@ input {
   .pop_content { padding:0; }
   h3.sub { margin:0; }
   .one_click_bonus div.desc { margin-right:2px;}
-
 }
