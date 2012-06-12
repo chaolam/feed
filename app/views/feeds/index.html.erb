@@ -209,19 +209,41 @@ App.appInit(<%= raw @games %>);
       <div class="for_mobile"><a href="#" class="gu_button" {{action "close"}}>Back</a></div>
       <h2>
         <div class="close for_pc"><a href="#">X</a></div>
+        Leave comments at the same time?
+      </h2>
+      <div class="pref_box">
+        <div class="auto_comment">
+          <label>Automatically leave comments when you 'like' posts?</label>
+          <textarea>Thanks! :) via Game Feeds http://apps.facebook.com/game_feeds</textarea>
+        </div>
+        <input type="submit" class="btn" value="Yes" />
+        <p><a href="#">no thanks</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div style="display:none;">
+<div id="overlay"></div>
+<div class="generic_dialog">
+  <div class="generic_dialog_popup sm_box">
+    <div id="pop_content" class="pop_content">
+      <div class="for_mobile"><a href="#" class="gu_button" {{action "close"}}>Back</a></div>
+      <h2>
+        <div class="close for_pc"><a href="#">X</a></div>
         Preferences
       </h2>
       <div class="pref_box">
         <div class="auto_comment">
           <input type="checkbox" checked="checked" /> 
           <label>Automatically leave comments when you 'like' posts?</label>
-          <textarea>Thanks! :) via Game Feeds http://apps.facebook.com/game_feeds</textarea>
+          <textarea class="with_o">Thanks! :) via Game Feeds http://apps.facebook.com/game_feeds</textarea>
         </div>
         <div class="auto_refresh">
           <input type="checkbox" checked="checked" /> 
           <label>Auto-Refresh the feeds every minute</label>
         </div>
-        <input type="submit" class="gu_button btn" value="Save" />
+        <input type="submit" class="btn" value="Save" />
       </div>
     </div>
   </div>
