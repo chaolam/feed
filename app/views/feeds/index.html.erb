@@ -3,9 +3,9 @@
     <div class="generic_dialog">
       <div class="generic_dialog_popup">
         <div id="pop_content" class="pop_content">
-          <div class="for_mobile"><a href="#" class="gu_button" {{action "close"}}>Back</a></div>
+          <div class="for_mobile"><a href="javascript:void(0)" class="gu_button" {{action "close"}}>Back</a></div>
           <h2>
-            <div class="close for_pc"><a href="#" {{action "close"}}>X</a></div>
+            <div class="close for_pc"><a href="javascript:void(0)" {{action "close"}}>X</a></div>
             Select the games you play to see the feed
           </h2>
           <div class="no_games_msg"><p>We cannnot detect any games on your homepage or your feed :( </p></div>
@@ -20,7 +20,7 @@
               </li>
 {{/each}}
               <li class="game_name">
-                <a href="#" class="suggest" id="suggest_more" {{action "suggestMore"}}>Suggest more...</a>
+                <a href="javascript:void(0)" class="suggest" id="suggest_more" {{action "suggestMore"}}>Suggest more...</a>
               </li>
             </ul>
           </div>
@@ -39,7 +39,7 @@
       <img src="http://graph.facebook.com/{{unbound actor_id}}/picture?type=square" />
     </a>
     <div class = "mainWrapper">
-      <h6 class="fb_name"><a href="#" {{action "viewActor"}}><fb:name uid="{{unbound actor_id}}" useyou="false" linked="false"></fb:name></a></h6>
+      <h6 class="fb_name"><a href="javascript:void(0)" {{action "viewActor"}}><fb:name uid="{{unbound actor_id}}" useyou="false" linked="false"></fb:name></a></h6>
       <div class="avatar"><img src="{{unbound picSrc}}" /></div>
       <div class="comment_text">
 {{#if message }}
@@ -53,7 +53,7 @@
         <img class="icon_img left" src="{{unbound game_icon}}" width=16 height=16>
         <div {{bindAttr class="like_this:like_this liked"}}>
           
-          <span class="like"><a href="#" {{action "likeMe"}} class="l_txt">Like</a></span>
+          <span class="like"><a href="javascript:void(0)" {{action "likeMe"}} class="l_txt">Like</a></span>
           <span class="unlike">Liked</span>
           
         </div>
@@ -89,7 +89,7 @@
   
   <div class="sidecol">
     <div class="for_pc">
-      <h4><div class="edit"><a href="#" onclick="App.showGameSelector()">edit</a></div> My Games</h4>
+      <h4><div class="edit"><a href="javascript:void(0)" onclick="App.showGameSelector()">edit</a></div> My Games</h4>
       <script type="text/x-handlebars">
       <ul class="sidenav"> 
       {{#each App.selectedGames }}
@@ -111,7 +111,7 @@
       </script>
     </div>
     <div class="for_mobile">
-      <h4><div class="edit"><a href="#" onclick="App.showGameSelector()">edit</a></div> My Games</h4>
+      <h4><div class="edit"><a href="javascript:void(0)" onclick="App.showGameSelector()">edit</a></div> My Games</h4>
       <form action="../">
       <select>
           <option>Farmville</option>
@@ -123,6 +123,10 @@
       </select>
       </form>
     </div>
+    <ul class="links">
+      <li><a href="http://gamersunite.coolchaser.com/topics/95930" target="_blank">Feedback/Suggestions</a></li>
+      <li><a href="http://gamersunite.coolchaser.com/topics/95931" target="_blank">Report a Bug</a></li>
+    </ul>
   </div>
   <div class="maincol">
     <div class="title_widget">
@@ -141,12 +145,12 @@
       </div>
       <script type="text/x-handlebars">
       {{#view App.AutoRefreshView id="refresh"}}
-        <div class="on_msg">Too heavy? <a href="#" {{action "turnOff"}}>Stop Auto-Refresh</a></div>
-        <div class="off_msg"><a href="#" {{action "turnOn"}}>Resume Auto-Refresh</a></div>
+        <div class="on_msg">Too heavy? <a href="javascript:void(0)" {{action "turnOff"}}>Stop Auto-Refresh</a></div>
+        <div class="off_msg"><a href="javascript:void(0)" {{action "turnOn"}}>Resume Auto-Refresh</a></div>
       {{/view}}
       </script>
 <% if false %>
-       <div class="prefs"><a href="#">Preferences</a></div>
+       <div class="prefs"><a href="javascript:void(0)">Preferences</a></div>
 <% end %>
     </div>
     <h3 class="sub">
@@ -206,9 +210,9 @@ App.appInit(<%= raw @games %>);
 <div class="generic_dialog">
   <div class="generic_dialog_popup sm_box">
     <div id="pop_content" class="pop_content">
-      <div class="for_mobile"><a href="#" class="gu_button" {{action "close"}}>Back</a></div>
+      <div class="for_mobile"><a href="javascript:void(0)" class="gu_button" {{action "close"}}>Back</a></div>
       <h2>
-        <div class="close for_pc"><a href="#">X</a></div>
+        <div class="close for_pc"><a href="javascript:void(0)">X</a></div>
         Leave comments at the same time?
       </h2>
       <div class="pref_box">
@@ -217,7 +221,7 @@ App.appInit(<%= raw @games %>);
           <textarea>Thanks! :) via Game Feeds http://apps.facebook.com/game_feeds</textarea>
         </div>
         <input type="submit" class="btn" value="Yes" />
-        <p><a href="#">no thanks</a></p>
+        <p><a href="javascript:void(0)">no thanks</a></p>
       </div>
     </div>
   </div>
@@ -228,9 +232,9 @@ App.appInit(<%= raw @games %>);
 <div class="generic_dialog">
   <div class="generic_dialog_popup sm_box">
     <div id="pop_content" class="pop_content">
-      <div class="for_mobile"><a href="#" class="gu_button" {{action "close"}}>Back</a></div>
+      <div class="for_mobile"><a href="javascript:void(0)" class="gu_button" {{action "close"}}>Back</a></div>
       <h2>
-        <div class="close for_pc"><a href="#">X</a></div>
+        <div class="close for_pc"><a href="javascript:void(0)">X</a></div>
         Preferences
       </h2>
       <div class="pref_box">
