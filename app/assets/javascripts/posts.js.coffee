@@ -41,7 +41,7 @@ App.FriendOrMeView = Em.View.extend(
   isFriend: ->
     App.set('authorView', 'friends')
 )
-    
+
 App.PostsController = Em.ArrayController.extend(
   content:[]
   lastChecked: null
@@ -72,7 +72,7 @@ App.PostsController = Em.ArrayController.extend(
     rfn('PostController#loadPosts should not be called!')
   receivePosts: (posts)->
     posts = posts.map((rawPost)->App.Post.create(rawPost))
-    posts = posts.filter((post)=> @showable(post)) 
+    posts = posts.filter((post)=> @showable(post))
     posts = posts.concat(@posts) if @lastChecked
     posts = posts.sort((a,b)->b.created_time - a.created_time).slice(0,400)
     @set('lastChecked', posts && posts[0] && posts[0].created_time || parseInt(Date.now()/1000))
@@ -133,7 +133,7 @@ App.myPostsController = App.PostsController.create(
   loadPosts: ->
     FB.api({method:'fql.query',query:'select post_id, actor_id, created_time, app_id, attachment, action_links, likes from stream where source_id=me() and actor_id=me() and type in (237, 272)'}, $.proxy(@receivePosts,@))
 )
-    
+
 App.Post = Ember.Object.extend(
   row: true
   collapsed: false
@@ -168,4 +168,3 @@ App.Post = Ember.Object.extend(
       )
     )
 )
-  
