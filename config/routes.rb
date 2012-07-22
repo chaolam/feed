@@ -1,18 +1,21 @@
 Feed::Application.routes.draw do
   resources :mygames
 
-  root :to=>'feeds#index'
+  root :to => 'feeds#index'
   resources :feeds
-  
+
   resources :games do
     member do
       get :icon
     end
   end
-  
-  match '/fb_channel', :controller=>'misc', :action=>'fb_channel'
-  match '/bookmark', :controller=>'misc', :action=>'canvas'
-  match '/message/:action', :controller=>'misc'
+
+  match '/fb_channel', :controller => 'misc', :action => 'fb_channel'
+  match '/bookmark', :controller => 'misc', :action => 'canvas'
+  match '/message/:action', :controller => 'misc'
+
+end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -69,4 +72,3 @@ Feed::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
-end
