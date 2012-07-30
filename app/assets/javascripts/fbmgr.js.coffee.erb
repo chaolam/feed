@@ -2,6 +2,7 @@
   ChannelUri: '/fb_channel'
   fbinit_deferred: $.Deferred()
   fblogged_in: $.Deferred()
+  permissions_deferred: $.Deferred()
   init: (appId)->
     @appId = appId
     @channelUrl = window.location.protocol + '//' + location.host +
@@ -24,4 +25,34 @@
   handleFBSession: (r)->
     if r.authResponse
       @fblogged_in.resolve()
+      @requestPermissions() unless @permissions
+  requestPermissions: (action)->
+    FB.api('/me/permissions', (r)=>
+      if r.data && r.data[0]
+        @permissions = r.data && r.data[0]
+        @permissions_deferred.resolve()
+        action() if action
+    )
+  hasPermission: (perm)->
+    @permissions[perm]
+  noMorePermission: (perm)->
+    @permissions[perm] = 0
+  withPermissionDo: (perm, action) ->
+    $.when(@permissions_deferred).then(=>
+      if @hasPermission(perm)
+        action()
+      else
+        if perm == 'read_stream'
+          # read_stream permission results in pop_up blocking, so use server side
+          oauth_url = 'https://www.facebook.com/dialog/oauth/'
+          oauth_url += '?client_id=' + @appId
+          oauth_url += '&redirect_uri=' + encodeURIComponent(location.href)
+          oauth_url += '&scope=read_stream'
+          window.top.location = oauth_url
+        else
+          FB.login(=>
+            @requestPermissions(action)
+          , {scope:perm})
+    )
+        
       

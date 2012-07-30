@@ -118,9 +118,13 @@ App.friendPostsController = App.PostsController.create(
       args.start_time = @lastChecked
     else
       args.limit = limit if limit
-    FB.api(args, $.proxy(@receiveStreamPosts, @))
+    FBMgr.withPermissionDo('read_stream', =>
+      FB.api(args, $.proxy(@receiveStreamPosts, @))
+    )
   loadAppPost: (appid)->
-    FB.api({method:'stream.get',filter_key:'app_'+appid}, $.proxy(@receiveStreamPosts, @))
+    FBMgr.withPermissionDo('read_stream', =>
+      FB.api({method:'stream.get',filter_key:'app_'+appid}, $.proxy(@receiveStreamPosts, @))
+    )
   receiveStreamPosts: (r)->
     @receivePosts(r.posts)
     console.log('fpc no posts!', r) if (!r.posts)
@@ -157,7 +161,7 @@ App.Post = Ember.Object.extend(
     @.get('postLink')
   like: ->
     self = @
-    App.withPermissionDo('publish_actions', ->
+    FBMgr.withPermissionDo('publish_actions', ->
       FB.api('/'+self.post_id+'/likes','post', (r)->
         if (r == true)
           self.set('like_count', (parseInt(self.get('like_count'),10)+1)+'')
