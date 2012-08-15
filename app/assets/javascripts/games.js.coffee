@@ -20,7 +20,7 @@ App.gamesController = Em.ArrayController.create(
     $.when(FBMgr.fblogged_in).then($.proxy(@queryMyPosts, @))
   queryMyPosts: ->
     $('#pop_content').addClass('fetching')
-    FB.api({method:'fql.query',query:'select actor_id, created_time, app_id from stream where source_id=me() and actor_id=me() and type in (237, 272)'}, $.proxy(@receiveMyPosts,@))
+    FB.api({method:'fql.query',query:'select actor_id, created_time, app_id from stream where source_id=me() and actor_id=me() and type in (237, 272) limit 100'}, $.proxy(@receiveMyPosts,@))
   queryGamePosts: ->
     $('#pop_content').addClass('suggested')
     $('#pop_content').addClass('fetching')
