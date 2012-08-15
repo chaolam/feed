@@ -135,7 +135,7 @@ App.friendPostsController = App.PostsController.create(
 App.myPostsController = App.PostsController.create(
   author: 'me'
   loadPosts: ->
-    FB.api({method:'fql.query',query:'select post_id, actor_id, created_time, app_id, attachment, action_links, likes from stream where source_id=me() and actor_id=me() and type in (237, 272)'}, $.proxy(@receivePosts,@))
+    FB.api({method:'fql.query',query:'select post_id, actor_id, created_time, app_id, attachment, action_links, likes from stream where source_id=me() and actor_id=me() and type in (237, 272) limit 100'}, $.proxy(@receivePosts,@))
 )
 
 App.Post = Ember.Object.extend(
