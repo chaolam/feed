@@ -153,7 +153,7 @@
        <div class="prefs"><a href="javascript:void(0)">Preferences</a></div>
 <% end %>
     </div>
-    <h3 class="sub">
+    <h3 class="sub make_pos">
       <script type="text/x-handlebars">
       {{#view App.OneClickView }}
       <div class="tellme for_pc">(<a href="javascript:$('#whats_1bonuses').toggle(); void(0);" class="tell_me_more">What's this?</a>)</div>
@@ -169,10 +169,10 @@
           <option value="45">45 secs</option>
           <option value="60">60 secs</option>
         </select>
-        <% if false %><div style="margin:5px 5px 0 0"><input type="checkbox"> Leave comments on items claimed</div><% end %>
+        <% if false %><div style="margin:5px 5px 0 0;"><input type="checkbox"> Leave comments on helpful posts
+        </div><% end %>
         <a {{action "start"}}  href="#" class="gu_button">Collect!</a>
       </div>
-      
       <div class="one_click_bonus running">
         <span class="processing">Collecting bonuses now (please do not close popup window) <%= image_tag("ajax-loader.gif") %></span>
         <span class="halt">Paused collecting bonuses (click resume to restart) </span>
@@ -180,9 +180,21 @@
         <a {{action "resume"}} href="#" class="gu_button green resume">Resume</a>
         <a {{action "stop"}} href="#" class="gu_button red stop">Stop</a>
       </div>
-      
     {{/view}}
     </script>
+<% if false %>
+    <div class="chat_outer">
+      <div class="chat-bubble">
+        <p class="close"><a href="#" alt="close"><%= image_tag("close.gif", :alt=>"close") %></a></p>
+        <div class="auto_comment">
+          <p>Let your friends know you helped with their requests!</p>
+          <textarea class="with_o">Helped with a lil assist from Game Feeds! http://apps.facebook.com/game_feeds</textarea>
+        </div>
+        <div class="chat-bubble-arrow-border border_left"></div>
+        <div class="chat-bubble-arrow arrow_left"></div>
+      </div>
+    </div>
+<% end %>
     </h3>
     <div style="display:none;" id="whats_1bonuses">
       <div class="what_is">
@@ -204,29 +216,6 @@
 App.appInit(<%= raw @games %>);
 </script>
 
-
-<div style="display:none;">
-<div id="overlay"></div>
-<div class="generic_dialog">
-  <div class="generic_dialog_popup sm_box">
-    <div id="pop_content" class="pop_content">
-      <div class="for_mobile"><a href="javascript:void(0)" class="gu_button" {{action "close"}}>Back</a></div>
-      <h2>
-        <div class="close for_pc"><a href="javascript:void(0)">X</a></div>
-        Leave comments at the same time?
-      </h2>
-      <div class="pref_box">
-        <div class="auto_comment">
-          <label>Automatically leave comments to items you collect?</label>
-          <textarea>Thanks! :) via Game Feeds http://apps.facebook.com/game_feeds</textarea>
-        </div>
-        <input type="submit" class="btn" value="Yes" />
-        <p><a href="javascript:void(0)">no thanks</a></p>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
 <div style="display:none;">
 <div id="overlay"></div>
 <div class="generic_dialog">
@@ -240,8 +229,8 @@ App.appInit(<%= raw @games %>);
       <div class="pref_box">
         <div class="auto_comment">
           <input type="checkbox" checked="checked" /> 
-          <label>Automatically leave comments when you 'like' posts?</label>
-          <textarea class="with_o">Thanks! :) via Game Feeds http://apps.facebook.com/game_feeds</textarea>
+          <label>Automatically leave comments on helpful posts when using 1-Click Bonus?</label>
+          <textarea class="with_o">Helped with a lil assist from Game Feeds! http://apps.facebook.com/game_feeds</textarea>
         </div>
         <div class="auto_refresh">
           <input type="checkbox" checked="checked" /> 
