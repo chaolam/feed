@@ -169,7 +169,7 @@
           <option value="45">45 secs</option>
           <option value="60">60 secs</option>
         </select>
-        <% if false %><div style="margin:5px 5px 0 0;"><input type="checkbox"> Leave comments on helpful posts
+        <% if false %><div style="margin:5px 5px 0 0;"><input type="checkbox"> Leave comments on helpful posts <a class="sm">(edit)</a>
         </div><% end %>
         <a {{action "start"}}  href="#" class="gu_button">Collect!</a>
       </div>
@@ -187,8 +187,9 @@
       <div class="chat-bubble">
         <p class="close"><a href="#" alt="close"><%= image_tag("close.gif", :alt=>"close") %></a></p>
         <div class="auto_comment">
-          <p>Let your friends know you helped with their requests!</p>
+          <p>Your comment</p>
           <textarea class="with_o">Helped with a lil assist from Game Feeds! http://apps.facebook.com/game_feeds</textarea>
+          <p class="sm">You can change this text anytime from the preferences on the top right.</p>
         </div>
         <div class="chat-bubble-arrow-border border_left"></div>
         <div class="chat-bubble-arrow arrow_left"></div>
