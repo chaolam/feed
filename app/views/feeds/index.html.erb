@@ -169,8 +169,11 @@
           <option value="45">45 secs</option>
           <option value="60">60 secs</option>
         </select>
-        <% if false %><div style="margin:5px 5px 0 0;"><input type="checkbox"> Leave comments on helpful posts
-        </div><% end %>
+        <div style="margin:5px 5px 0 0;">
+          {{#view Em.Checkbox checkedBinding="App.oneClickController.leaveComment"}}
+            Leave comments on helpful posts
+          {{/view}}
+        </div>
         <a {{action "start"}}  href="#" class="gu_button">Collect!</a>
       </div>
       <div class="one_click_bonus running">
@@ -180,21 +183,22 @@
         <a {{action "resume"}} href="#" class="gu_button green resume">Resume</a>
         <a {{action "stop"}} href="#" class="gu_button red stop">Stop</a>
       </div>
+      <div class="chat_outer">
+        <div class="chat-bubble">
+          <p class="close">
+            <a {{action "closeCommentBox"}} alt="close"><%= image_tag("close.gif", :alt=>"close") %></a>
+          </p>
+          <div class="auto_comment">
+            <p>Let your friends know you helped with their requests!</p>
+            {{#view Em.TextArea valueBinding="App.oneClickController.comment" }}
+            {{/view}}
+          </div>
+          <div class="chat-bubble-arrow-border border_left"></div>
+          <div class="chat-bubble-arrow arrow_left"></div>
+        </div>
+      </div>
     {{/view}}
     </script>
-<% if false %>
-    <div class="chat_outer">
-      <div class="chat-bubble">
-        <p class="close"><a href="#" alt="close"><%= image_tag("close.gif", :alt=>"close") %></a></p>
-        <div class="auto_comment">
-          <p>Let your friends know you helped with their requests!</p>
-          <textarea class="with_o">Helped with a lil assist from Game Feeds! http://apps.facebook.com/game_feeds</textarea>
-        </div>
-        <div class="chat-bubble-arrow-border border_left"></div>
-        <div class="chat-bubble-arrow arrow_left"></div>
-      </div>
-    </div>
-<% end %>
     </h3>
     <div style="display:none;" id="whats_1bonuses">
       <div class="what_is">
