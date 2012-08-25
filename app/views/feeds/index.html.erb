@@ -149,9 +149,6 @@
         <div class="off_msg"><a href="javascript:void(0)" {{action "turnOn"}}>Resume Auto-Refresh</a></div>
       {{/view}}
       </script>
-<% if false %>
-       <div class="prefs"><a href="javascript:void(0)">Preferences</a></div>
-<% end %>
     </div>
     <h3 class="sub make_pos">
       <script type="text/x-handlebars">
@@ -169,8 +166,11 @@
           <option value="45">45 secs</option>
           <option value="60">60 secs</option>
         </select>
-        <% if false %><div style="margin:5px 5px 0 0;"><input type="checkbox"> Leave comments on helpful posts <a class="sm">(edit)</a>
-        </div><% end %>
+        <div class="comment_opt">
+          {{#view Em.Checkbox checkedBinding="App.oneClickController.leaveComment"}}
+            Leave comments on 5% of the posts
+          {{/view}}
+        </div>
         <a {{action "start"}}  href="#" class="gu_button">Collect!</a>
       </div>
       <div class="one_click_bonus running">
@@ -180,22 +180,22 @@
         <a {{action "resume"}} href="#" class="gu_button green resume">Resume</a>
         <a {{action "stop"}} href="#" class="gu_button red stop">Stop</a>
       </div>
+      <div class="auto_comment_div">
+        <div class="chat-bubble">
+          <p class="close">
+            <a {{action "closeCommentBox"}} alt="close"><%= image_tag("close.gif", :alt=>"close") %></a>
+          </p>
+          <div class="auto_comment">
+            <p><strong>Let your friends know you helped with their requests!</strong></p>
+            {{#view Em.TextArea valueBinding="App.oneClickController.comment" }}
+            {{/view}}
+          </div>
+          <div class="chat-bubble-arrow-border border_left"></div>
+          <div class="chat-bubble-arrow arrow_left"></div>
+        </div>
+      </div>
     {{/view}}
     </script>
-<% if false %>
-    <div class="chat_outer">
-      <div class="chat-bubble">
-        <p class="close"><a href="#" alt="close"><%= image_tag("close.gif", :alt=>"close") %></a></p>
-        <div class="auto_comment">
-          <p>Your comment</p>
-          <textarea class="with_o">Helped with a lil assist from Game Feeds! http://apps.facebook.com/game_feeds</textarea>
-          <p class="sm">You can change this text anytime from the preferences on the top right.</p>
-        </div>
-        <div class="chat-bubble-arrow-border border_left"></div>
-        <div class="chat-bubble-arrow arrow_left"></div>
-      </div>
-    </div>
-<% end %>
     </h3>
     <div style="display:none;" id="whats_1bonuses">
       <div class="what_is">
@@ -205,6 +205,7 @@
             <li>Please don't close the popup window until it's done; the window will close automatically at the end.</li>
             <li>Some games take longer to load to get the bonuses, so adjust the time to grab each bonuses into longer seconds.</li>
             <li>Hover over the posts and select "Don't collect this for 1-click bonuses" if you don't want to click on that bonus</li>
+            <li>Leave comments on 5% of the posts so your friends know you helped them (you don't want to be too spammy!)</li>
           </ul>
       </div>
     </div>
@@ -216,30 +217,3 @@
 <script>
 App.appInit(<%= raw @games %>);
 </script>
-
-<div style="display:none;">
-<div id="overlay"></div>
-<div class="generic_dialog">
-  <div class="generic_dialog_popup sm_box">
-    <div id="pop_content" class="pop_content">
-      <div class="for_mobile"><a href="javascript:void(0)" class="gu_button" {{action "close"}}>Back</a></div>
-      <h2>
-        <div class="close for_pc"><a href="javascript:void(0)">X</a></div>
-        Preferences
-      </h2>
-      <div class="pref_box">
-        <div class="auto_comment">
-          <input type="checkbox" checked="checked" /> 
-          <label>Automatically leave comments on helpful posts when using 1-Click Bonus?</label>
-          <textarea class="with_o">Helped with a lil assist from Game Feeds! http://apps.facebook.com/game_feeds</textarea>
-        </div>
-        <div class="auto_refresh">
-          <input type="checkbox" checked="checked" /> 
-          <label>Auto-Refresh the feeds every minute</label>
-        </div>
-        <input type="submit" class="btn" value="Save" />
-      </div>
-    </div>
-  </div>
-</div>
-</div>

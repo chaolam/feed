@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.cookie
 //= require fbmgr
 //= require ember-0.9.7.1
 //= require date_mod

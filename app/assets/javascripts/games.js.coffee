@@ -40,6 +40,11 @@ App.gamesController = Em.ArrayController.create(
   save: (appids) ->
     App.set('selectedAppids', appids)
     $.post('/mygames', {appids:App.appidsStr()})
+  selectedGamesString: ->
+    if App.filterGameController.filter == App.allGamesObj
+      App.get('selectedGames').slice(1).map((g)->g.name).join(', ')
+    else
+      App.filterGameController.filter.name
 )
 
 App.SelectGameView = Em.View.extend(

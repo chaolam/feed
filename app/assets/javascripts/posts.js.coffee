@@ -171,4 +171,6 @@ App.Post = Ember.Object.extend(
           alert('oops, lost permission to like post')
       )
     )
+  comment: (commentText)->
+    FB.api('/'+@.get('post_id')+'/comments', 'post', {message:commentText}, rfn)
 )
