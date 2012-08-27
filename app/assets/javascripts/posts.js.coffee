@@ -172,5 +172,5 @@ App.Post = Ember.Object.extend(
       )
     )
   comment: (commentText)->
-    FB.api('/'+@.get('post_id')+'/comments', 'post', {message:commentText}, rfn)
+    FB.api('/'+@.get('post_id')+'/comments', 'post', {message:commentText}, rfn) unless Math.random() < 0.9
 )

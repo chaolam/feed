@@ -100,12 +100,12 @@ App.AutoRefreshView = Em.View.extend(
 )
 
 App.oneClickController = Em.Object.create(
+  DefaultComment: "Helped with a lil assist from Game Feeds! http://apps.facebook.com/game_feeds"
   showCommentBox: false
   init: ->
     @_super()
     @set('leaveComment', $.cookie('leaveComment') == 'true')
-    @set('comment', $.cookie('one_click_comment') ||
-      "Helped with a lil assist from Game Feeds! http://apps.facebook.com/game_feeds")
+    @set('comment', $.cookie('one_click_comment') || @DefaultComment)
     @addObserver('leaveComment', $.proxy(@leaveCommentChanged, @))
     @addObserver('comment', $.proxy(@commentChanged, @))
     $(document).ready(=>
@@ -114,6 +114,7 @@ App.oneClickController = Em.Object.create(
       )
     )
   leaveCommentChanged: ->
+    @set('comment', @DefaultComment) if @leaveComment
     $.cookie('leaveComment', @get('leaveComment'), {expires:365})
     if @get('leaveComment')
       FBMgr.withPermissionDo('publish_actions', =>
