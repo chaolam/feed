@@ -6,6 +6,7 @@ gem 'rails', '3.2.1'
 gem 'rake', '0.9.2.2'
 gem 'rdoc', '3.12'
 
+gem 'airbrake', '3.1.2'
 gem 'jquery-rails', '2.0.2'
 gem 'koala', '1.5.0'
 gem 'mysql2', '0.3.11'
