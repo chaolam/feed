@@ -22,7 +22,7 @@ protected
     end
     @user = User.find_or_create_by_facebook_uid(user_id) if user_id
   rescue Exception=>e
-    raise e
+    # raise e
     @user = @fb_token = nil
   end
 
