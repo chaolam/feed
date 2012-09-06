@@ -42,9 +42,9 @@ class MygamesController < ApplicationController
   # POST /mygames.json
   def create
     appids = params[:appids].split(',')
-    games = appids.collect {|appid| Game.get_by_app_id(appid.to_s)}
+    games = appids.collect {|appid| Game.get_by_app_id(appid.to_s, @fb_token)}.compact
     fb_user.games = games
-    render :nothing=>true
+    render :text=>'success'
   end
 
   # PUT /mygames/1
