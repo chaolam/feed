@@ -38,7 +38,9 @@ protected
   end
   
   def redirect_to_oauth
-    @oauth_url = koala_oauth.url_for_oauth_code(:permissions=>'read_stream')
+    redirect_url = "http://apps.facebook.com/#{FBConf.canvas_name}"
+    
+    @oauth_url = "https://www.facebook.com/dialog/oauth/?client_id=#{FBConf.app_id}&redirect_uri=#{CGI.escape(redirect_url)}&scope=read_stream"
     render :layout=>'oauth'
   end
 end
