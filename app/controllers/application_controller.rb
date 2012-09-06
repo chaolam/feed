@@ -33,7 +33,7 @@ protected
   end
 
   def koala_oauth
-    redirect_url = url_for(:controller=>'misc', :action=>'canvas')
+    redirect_url = "http://apps.facebook.com/#{FBConf.canvas_name}"
     Koala::Facebook::OAuth.new(FBConf.app_id, FBConf.secret_key, redirect_url)
   end
   
