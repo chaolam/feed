@@ -5,4 +5,9 @@ class GamesController < ApplicationController
   rescue Exception=>e
     render(:file=>"#{Rails.root}/public/404.html", :status=>404)
   end
+  
+  def search
+    games = params[:query].blank? ? [] : Game.search(params[:query])
+    render :json=>games.collect(&:for_client)
+  end
 end

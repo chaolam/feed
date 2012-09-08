@@ -16,8 +16,21 @@ App.filterGameController = Em.Object.create(
 
 App.gamesController = Em.ArrayController.create(
   content:[]
+  searchResults:[]
+  selectedAppidsBinding: 'App.selectedAppids'
   init: -> 
     $.when(FBMgr.fblogged_in).then($.proxy(@queryMyPosts, @))
+  currentGames: Em.computed(->
+    appids = @get('selectedAppids')
+    if appids
+      appids.map((appid)->
+        game = App.Game.findByAppId(appid)
+        game.set('selected', true)
+        game
+      )
+    else
+      []
+  ).property('selectedAppids').cacheable()
   queryMyPosts: ->
     $('#pop_content').addClass('fetching')
     FB.api({method:'fql.query',query:'select actor_id, created_time, app_id from stream where source_id=me() and actor_id=me() and type in (237, 272) limit 100'}, $.proxy(@receiveMyPosts,@))
@@ -27,9 +40,16 @@ App.gamesController = Em.ArrayController.create(
     FB.api({method:'fql.query',query:'select actor_id, created_time, app_id from stream where filter_key="cg" limit 100'}, $.proxy(@filterPosts,@))
   filterPosts: (posts)->
     appIds = @appIds || []
-    posts.forEach((post) -> if $.inArray(post.app_id, appIds)==-1 then appIds.push(post.app_id))
+    posts.forEach((post) =>
+      if $.inArray(post.app_id, appIds)==-1  
+        appIds.push(post.app_id)
+    )
     @appIds = appIds
-    @.set('content',appIds.map((appId)->App.Game.findByAppId(appId)))
+    @.set('content', appIds.map((appId)->
+      game = App.Game.findByAppId(appId)
+      game.set('selected', true)
+      game
+    ))
     $('#pop_content').removeClass('fetching')
     $('#pop_content').addClass('no_games') if @appIds.length == 0
   receiveMyPosts: (posts)->
@@ -52,6 +72,8 @@ App.SelectGameView = Em.View.extend(
   tagName: 'div'
   elementId: 'selg'
   isVisible: false
+  queryBinding: 'App.gamesController.query'
+  searchResultsBinding: 'App.gamesController.searchResults'
   suggestMore: ->
     App.gamesController.queryGamePosts()
   close: ->
@@ -60,12 +82,18 @@ App.SelectGameView = Em.View.extend(
     @close()
     appids = $('#'+@elementId + ' input[type=checkbox]').filter((i,elt)->elt.checked).map((i,elt)->elt.id).toArray()
     App.gamesController.save(appids)
+  search: ->
+    window.x = this
+    $.ajax({url:'/games/search',data:{query:@get('query')}}).done((data)=>
+      @set('searchResults', App.Game.receiveGames(data))
+    )
 )
 
 App.Game = Ember.Object.extend(
   init: ->
-    @set('icon_url', '/games/' + @appid + '/icon')
-    FB.api('/'+@appid, $.proxy(@receiveAppInfo, @))
+    if !@icon_url
+      @set('icon_url', '/games/' + @appid + '/icon')
+      FB.api('/'+@appid, $.proxy(@receiveAppInfo, @))
   receiveAppInfo: (r)->
     @set('icon_url', r.icon_url)
     @set('name', r.name)
@@ -79,4 +107,15 @@ App.Game.reopenClass(
       @games[appid]
     else
       @games[appid] = App.Game.create({appid:appid})
+  receiveGames: (data)->
+    data.map((gameData)=>
+      if @games[gameData.appid]
+        @games[gameData.appid]
+      else
+        @games[gameData.appid] = App.Game.create(gameData)
+    )
+)
+
+App.GameSelectorView = Em.View.extend(
+  templateName:'game-selector'
 )

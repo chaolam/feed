@@ -8,6 +8,9 @@ Feed::Application.routes.draw do
     member do
       get :icon
     end
+    collection do
+      get :search
+    end
   end
 
   match '/fb_channel', :controller => 'misc', :action => 'fb_channel'

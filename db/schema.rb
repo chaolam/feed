@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120312182305) do
+ActiveRecord::Schema.define(:version => 20120907012040) do
 
   create_table "games", :force => true do |t|
     t.string   "app_id"
@@ -20,11 +20,19 @@ ActiveRecord::Schema.define(:version => 20120312182305) do
     t.string   "logo_url"
     t.string   "mobile_web_url"
     t.string   "name"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.string   "category"
+    t.string   "subcategory"
+    t.string   "description"
+    t.integer  "daily_active_users"
+    t.integer  "weekly_active_users"
+    t.integer  "monthly_active_users"
   end
 
   add_index "games", ["app_id"], :name => "index_games_on_app_id"
+  add_index "games", ["category"], :name => "index_games_on_category"
+  add_index "games", ["name"], :name => "index_games_on_name"
 
   create_table "mygames", :force => true do |t|
     t.integer  "game_id"

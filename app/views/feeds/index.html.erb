@@ -1,3 +1,13 @@
+<script type="text/x-handlebars" data-template-name="game-selector">
+{{#with content}}
+  <li class="game_name">
+    {{view Em.Checkbox checkedBinding="selected"}}
+    <img src="{{unbound icon_url }}" />
+    {{name}}
+  </li>
+{{/with}}
+</script>
+
 <script type="text/x-handlebars" data-template-name="select-games">
     <div id="overlay"></div>
     <div class="generic_dialog">
@@ -9,51 +19,38 @@
             Select the games you play to see the feeds
           </h2>
           <div class="no_games_msg"><p>We cannnot detect any game on your homepage or your feeds :( </p></div>
+<% if true %>
+          <div class="gray">
+            <p>Here are games you have selected</p>
+            <ul class="game_names clearfix">
+              {{#each App.gamesController.currentGames}}
+                {{view App.GameSelectorView contentBinding="this"}}
+              {{/each}}
+            </ul>
+          </div>
+<% end %>
           <div class="show_games_msg">
             <div class="gray">
-              <p>Here are the games I recently played</p>
+              <p>Here are the games you and your friends recently played</p>
               <ul id="games_list" class="game_names clearfix">
-  {{#each App.gamesController.content }}
-                <li class="game_name">
-                  <input {{bindAttr id="appid"}} type="checkbox" checked="checked" />
-                  <img src="{{unbound icon_url }}" />
-                  {{name}}
-                </li>
-  {{/each}}
+                {{#each App.gamesController.content }}
+                  {{view App.GameSelectorView contentBinding="this"}}
+                {{/each}}
                 <li class="game_name">
                   <a href="javascript:void(0)" class="suggest" id="suggest_more" {{action "suggestMore"}}>Suggest more...</a>
                 </li>
               </ul>
             </div>
-<% if false %>
-            <div class="gray">
-              <p>Fetch more games my friends played recently</p>
-              <p><a href="javascript:void(0)" class="gu_button green" id="suggest_more" {{action "suggestMore"}}>Suggest more...</a></p>
-            </div>
-            <div class="gray">
+<% if true %>
               <p>Search for games to add</p>
-              <p><input type="text" class="search" /> <input type="button" class="gu_button green" value="Search" /></p>
+              <p>
+                {{view Em.TextField class="search" valueBinding="App.gamesController.query"}}
+                <input type="button" class="gu_button green" value="Search" {{action "search"}}/>
+              </p>
               <ul id="search_list" class="game_names clearfix">
-                <li class="game_name">
-                  <input id="291549705119" data-bindattr-154="154" type="checkbox">
-                  <img src="/games/291549705119/icon">
-                  Bubble
-                </li>
-                <li class="game_name">
-                  <input id="102452128776" data-bindattr-155="155" type="checkbox">
-                  <img src="/games/102452128776/icon">
-                  Bubble Witch
-                </li>
-                <li class="game_name">
-                  <input id="222868257269" data-bindattr-156="156" type="checkbox">
-                  <img src="/games/222868257269/icon">
-                  Bubble Witch Saga
-                </li>
-                <li class="game_name">
-                  <input id="123338877715314" data-bindattr-157="157" type="checkbox">
-                  <img src="/games/123338877715314/icon">
-                  Monkey Bubble
-                </li>
+                {{#each App.gamesController.searchResults}}
+                  {{view App.GameSelectorView contentBinding="this"}}
+                {{/each}}
               </ul>
             </div>
 <% end %>

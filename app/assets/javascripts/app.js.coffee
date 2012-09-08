@@ -1,4 +1,4 @@
-@rfn = (r)-> console.log('rfn',@zz=r) if (window.console)
+@rfn = (r)-> console.log('rfn', window.zz=r) if (window.console)
   
 @App = Em.Application.create(
   selectedAppids: null
@@ -10,8 +10,8 @@
     appidsBinding: 'App.selectedAppids'
   )
   selectedGames: Em.computed(->
-    appids = @.get('selectedAppids')
-    games = (appids && appids.map((appid)->App.Game.findByAppId(appid)) || [])
+    appids = @get('selectedAppids')
+    games = appids && appids.map((appid)->App.Game.findByAppId(appid)) || []
     games.unshift(App.allGamesObj)
     games
   ).property('selectedAppids').cacheable()
