@@ -17,12 +17,14 @@
       @popupWindow = window.open(firstUrl, '', this.specs)
       @stepCB(@urlObj) if (@stepCB)
       @timer = window.setInterval($.proxy(@next,@), @delay)
+      @count = 1
   next: ->
     @prevObj = @urlObj
     @urlObj = @urlObjs.shift()
     if !@popupWindow.closed && @urlObj
       url = @urlObj.getUrl()
       @popupWindow.location = url
+      ++@count
       @stepEndCB(@prevObj) if (@prevObj && @stepEndCB)
       @stepCB(@urlObj) if @stepCB
     else
@@ -30,7 +32,7 @@
       window.clearInterval(@timer)
       @timer = null
       @stepEndCB(@prevObj) if (@prevObj && @stepEndCB)
-      @finalCB() if @finalCB
+      @finalCB(@count) if @finalCB
   pause: ->
     window.clearInterval(@timer)
     @timer = null
@@ -40,6 +42,6 @@
   stop: ->
     @pause()
     @popupWindow.close()
-    @finalCB() if @finalCB
+    @finalCB(@count) if @finalCB
   isActive: ->
     @timer && @popupWindow && !@popupWindow.closed

@@ -57,10 +57,10 @@ App.OneClickView = Em.View.extend(
         post.set('collapsed', true)
         post.comment(App.oneClickController.get('comment'))
         App.removePost(post)
-      finalCB: =>
+      finalCB: (count)=>
         @set('active', false)
         @set('paused', false)
-        captionStr = 'Yay I just collected ' + posts.length + ' bonuses in one click from ' +
+        captionStr = 'Yay I just collected ' + count + ' bonuses in one click from ' +
           App.gamesController.selectedGamesString() + ' !'
         FB.ui({method:'feed',name:'View game feeds and collect bonuses easier', link:'http://apps.facebook.com/game_feeds/?fb_source=feedtitle', picture: 'http://images.coolchaser.com/gamecheats/giftbox.png', caption:captionStr, description:'You should try it too, you can view and collect your game bonuses so much easier!'})
     })
