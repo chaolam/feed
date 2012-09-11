@@ -1,7 +1,9 @@
 <script type="text/x-handlebars" data-template-name="game-selector">
-{{#with content}}
+{{#with game}}
   <li class="game_name">
-    {{view Em.Checkbox checkedBinding="selected"}}
+    <div class="add">
+      <a title="add game" {{action "add"}}><%= image_tag("add.png") %></a>
+    </div>
     <img src="{{unbound icon_url }}" />
     {{name}}
   </li>
@@ -24,7 +26,11 @@
             <p>Here are games you have selected</p>
             <ul class="game_names clearfix">
               {{#each App.gamesController.currentGames}}
-                {{view App.GameSelectorView contentBinding="this"}}
+                <li class="game_name">
+                  {{view Em.Checkbox checkedBinding="selected"}}
+                  <img src="{{unbound icon_url }}" />
+                  {{name}}
+                </li>
               {{/each}}
             </ul>
           </div>
@@ -34,7 +40,7 @@
               <p>Here are the games you and your friends recently played</p>
               <ul id="games_list" class="game_names clearfix">
                 {{#each App.gamesController.content }}
-                  {{view App.GameSelectorView contentBinding="this"}}
+                  {{view App.GameSelectorView gameBinding="this"}}
                 {{/each}}
                 <li class="game_name">
                   <a href="javascript:void(0)" class="suggest" id="suggest_more" {{action "suggestMore"}}>Suggest more...</a>
@@ -42,6 +48,7 @@
               </ul>
             </div>
 <% if true %>
+            <div class="gray">
               <p>Search for games to add</p>
               <p>
                 {{view Em.TextField class="search" valueBinding="App.gamesController.query"}}
@@ -49,7 +56,7 @@
               </p>
               <ul id="search_list" class="game_names clearfix">
                 {{#each App.gamesController.searchResults}}
-                  {{view App.GameSelectorView contentBinding="this"}}
+                  {{view App.GameSelectorView gameBinding="this"}}
                 {{/each}}
               </ul>
             </div>

@@ -17,20 +17,16 @@ App.filterGameController = Em.Object.create(
 App.gamesController = Em.ArrayController.create(
   content:[]
   searchResults:[]
+  currentGames: []
   selectedAppidsBinding: 'App.selectedAppids'
   init: -> 
+    @addObserver('selectedAppids', $.proxy(@calcCurrentGames, @))
     $.when(FBMgr.fblogged_in).then($.proxy(@queryMyPosts, @))
-  currentGames: Em.computed(->
+  calcCurrentGames: ->
     appids = @get('selectedAppids')
-    if appids
-      appids.map((appid)->
-        game = App.Game.findByAppId(appid)
-        game.set('selected', true)
-        game
-      )
-    else
-      []
-  ).property('selectedAppids').cacheable()
+    currentGames = if appids then App.Game.findAllByAppIds(appids) else []
+    currentGames.forEach((game)->game.set('selected', true))
+    @set('currentGames', currentGames)
   queryMyPosts: ->
     $('#pop_content').addClass('fetching')
     FB.api({method:'fql.query',query:'select actor_id, created_time, app_id from stream where source_id=me() and actor_id=me() and type in (237, 272) limit 100'}, $.proxy(@receiveMyPosts,@))
@@ -45,11 +41,8 @@ App.gamesController = Em.ArrayController.create(
         appIds.push(post.app_id)
     )
     @appIds = appIds
-    @.set('content', appIds.map((appId)->
-      game = App.Game.findByAppId(appId)
-      game.set('selected', true)
-      game
-    ))
+    games = App.Game.findAllByAppIds(appIds)
+    @set('content', this.removeDuplicates(games))
     $('#pop_content').removeClass('fetching')
     $('#pop_content').addClass('no_games') if @appIds.length == 0
   receiveMyPosts: (posts)->
@@ -57,7 +50,8 @@ App.gamesController = Em.ArrayController.create(
       @filterPosts(posts)
     else
       @queryGamePosts()
-  save: (appids) ->
+  save: () ->
+    appids = @get('currentGames').filterProperty('selected').mapProperty('appid')
     App.set('selectedAppids', appids)
     $.post('/mygames', {appids:App.appidsStr()})
   selectedGamesString: ->
@@ -65,6 +59,18 @@ App.gamesController = Em.ArrayController.create(
       App.get('selectedGames').slice(1).map((g)->g.name).join(', ')
     else
       App.filterGameController.filter.name
+  removeDuplicates: (games)->
+    games.filter((game)=>!@get('currentGames').contains(game))
+  setSearchResults: (searchedGames)->
+    @set('searchResults', this.removeDuplicates(searchedGames))
+  addGame: (game)->
+    if !@get('currentGames').contains(game)
+      game.set('selected', true)
+      currentGames = @get('currentGames').copy()
+      currentGames.push(game)
+      @set('currentGames', currentGames)
+    @set('searchResults', @searchResults.copy().without(game))
+    @set('content', @content.copy().without(game))
 )
 
 App.SelectGameView = Em.View.extend(
@@ -79,13 +85,12 @@ App.SelectGameView = Em.View.extend(
   close: ->
     @set('isVisible', false)
   save: ->
+    App.gamesController.save()
     @close()
-    appids = $('#'+@elementId + ' input[type=checkbox]').filter((i,elt)->elt.checked).map((i,elt)->elt.id).toArray()
-    App.gamesController.save(appids)
   search: ->
     window.x = this
     $.ajax({url:'/games/search',data:{query:@get('query')}}).done((data)=>
-      @set('searchResults', App.Game.receiveGames(data))
+      App.gamesController.setSearchResults(App.Game.receiveGames(data))
     )
 )
 
@@ -114,8 +119,16 @@ App.Game.reopenClass(
       else
         @games[gameData.appid] = App.Game.create(gameData)
     )
+  findAllByAppIds: (ids)->
+    if ids
+      this.findByAppId(id) for id in ids
+    else
+      []
 )
 
 App.GameSelectorView = Em.View.extend(
   templateName:'game-selector'
+  add: ->
+    App.gamesController.addGame(@game)
+    console.log('added: ', @game.name)
 )
