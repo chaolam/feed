@@ -318,6 +318,9 @@ a.gu_button, input.gu_button, span.gu_button
 .red.gu_button:hover{ background-color: #cf2525; }
 .gray.gu_button, .gray.gu_button:visited{ background-color: #999999; }
 .gray.gu_button:hover{ background-color: #cccccc; }
+.blue.gu_button, .blue.gu_button:visited{ background: #E2E6F0 url(<%= asset_path 'add.gif' %>) no-repeat 95% 50%; color:#000; margin-left:6px; text-shadow:0 1px 1px #fff; padding-right:20px;}
+.blue.gu_button:hover{ background: #d1d3d8 url(<%= asset_path 'add.gif' %>) no-repeat 95% 50%; color:#000; }
+
 
 .running.one_click_bonus { display:none; }
 .active {
@@ -400,11 +403,15 @@ input {
 
 .game_names { margin:10px 0 15px; background:url(<%= asset_path 'snagable_bg.gif' %>) repeat-y top center; overflow:hidden; list-style:none; white-space:nowrap; overflow:hidden;}
 .game_name {
-  float:left; width:195px; padding:6px; font-size:95%; 
+  float:left; width:195px; padding:6px; font-size:95%;height:20px;
   span { margin-right:10px; font-size:90%;}
   img { vertical-align:top; margin:1px 3px 0 0;}
 }
- .add { float:right;}
+.game_names_btn { margin:10px 0 15px; 
+  li { float:left; list-style:none;  
+    img { vertical-align:middle; }
+  }
+}
  .suggest { margin:0 0 0 4px; font-size:110%;}
  .suggested .suggest { display:none; }
 
@@ -415,8 +422,8 @@ input {
 }
 
 .fetching { background:#fff url(<%= asset_path 'ajax-loader-big.gif' %>) no-repeat 50% 20px; overflow:hidden;}
-  #pop_content.fetching, #feed div.fetching { 
-    background-position:50%; min-height:100px;
+  .sp.pop_content.fetching, #feed div.fetching { 
+    background:#fff url(<%= asset_path 'ajax-loader-big.gif' %>) no-repeat 50%; min-height:100px;
     * { opacity:0.4; filter:alpha(opacity=40); }
     }
 .has-no-posts { font-size:110%; padding:15px; }
