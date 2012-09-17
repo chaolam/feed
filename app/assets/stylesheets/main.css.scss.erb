@@ -25,9 +25,9 @@ h1 {
 
 .options, #refresh { float:left; font-size:90%; margin:22px 0 0px 0}
 #refresh { float:right; margin-right:10px;
-  .on_msg { display:none; }
-  &.on .on_msg { display:block; }
-  &.on .off_msg { display:none; }
+  .on_msg, .halt_msg { display:none; }
+  &.on .on_msg, &.halt .halt_msg { display:block; }
+  &.on .off_msg, &.halt .off_msg, &.halt .on_msg  { display:none; }
    }
 
 h3.sub { 
